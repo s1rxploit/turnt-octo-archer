@@ -1,5 +1,6 @@
 <?php namespace App\Providers;
 
+use App\Helpers\JSHelper;
 use Exception;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;
@@ -21,6 +22,10 @@ class ErrorServiceProvider extends ServiceProvider {
 		// even register several error handlers to handle different types of
 		// exceptions. If nothing is returned, the default error view is
 		// shown, which includes a detailed stack trace during debug.
+        $handler->missing(function($e)
+        {
+            return view('master')->with('window', new JSHelper );
+        });
 		$handler->error(function(Exception $e) use ($log)
 		{
 			$log->error($e);
