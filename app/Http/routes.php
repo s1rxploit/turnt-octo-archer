@@ -1,14 +1,25 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+Route::group(['prefix'=>'api'],function()
+{
 
-$router->get('/', 'HomeController@index');
+    Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+    Route::post('auth/login', 'Auth\AuthController@postLogin');
+
+    Route::post('auth/forgotpassword', 'Auth\RemindersController@postRemind');
+});
+
+//App::missing(function()
+//{
+//    return view('master')->with('window', new App\Helpers\JSHelper );
+//});
+
+//App::after(function($request, $response)
+//{
+//    if($response instanceof \Illuminate\Http\JsonResponse)
+//    {
+//        $json = ")]}',\n" . $response->getContent();
+//        return $response->setContent($json);
+//    }
+//});

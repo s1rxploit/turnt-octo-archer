@@ -1,7 +1,7 @@
 <?php namespace App;
 
 use Illuminate\Auth\UserTrait;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Contracts\Auth\User as UserContract;
 use Illuminate\Contracts\Auth\Remindable as RemindableContract;
@@ -24,4 +24,13 @@ class User extends Model implements UserContract, RemindableContract {
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    public function posts()
+    {
+        return $this->hasMany('Post');
+    }
+
+    public function comments()
+    {
+        return $this->hasManyThrough('Comment', 'Post');
+    }
 }

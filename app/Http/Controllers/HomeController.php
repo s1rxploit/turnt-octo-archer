@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-class HomeController {
+use Illuminate\Routing\Controller;
+
+class HomeController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -11,13 +13,10 @@ class HomeController {
 	| based routes. That's great! Here is an example controller method to
 	| get you started. To route to this controller, just add the route:
 	|
-	|	$router->get('/', 'HomeController@index');
+	|	Route::get('/', 'HomeController@index');
 	|
 	*/
 
-	/**
-	 * @Get("/", as="home")
-	 */
 	public function index()
 	{
 		return view('hello');

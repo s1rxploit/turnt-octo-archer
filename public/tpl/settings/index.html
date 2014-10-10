@@ -1,0 +1,26 @@
+<div content-for="title">
+    <span>SettingsController</span>
+</div>
+
+<div class="scrollable" ng-controller="SettingsController">
+    <div class="scrollable-content section">
+
+        <table>
+            <tr ng-repeat="country in nations">
+                <td>{{ country.name }}</td>
+                <td>
+                    <switch bs-form-control
+                            ng-change="followNation($index)"
+                            ng-model="country.follow"
+                            ng-click="followNation($index)"
+                            label=""
+                            label-class="col-xs-3 col-sm-2 col-lg-1"
+                            class="col-xs-9 col-sm-10 col-lg-11"
+                            >
+                    </switch>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
