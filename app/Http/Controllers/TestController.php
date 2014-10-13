@@ -52,19 +52,11 @@ class TestController extends Controller
 
         if (!empty($user)) {
 
-            //Find referral
-            if (DB::table('users')->where('id', $user->user_id)->count() > 0) {
-                //user exists add to array
-                array_push($this->chain, $user->user_id);
-            }
-
-
-            //dd($user->referral_id);
+            array_push($this->chain, $user->user_id);
 
             //User have a referral .
-            if (DB::table('users')->where('id', $user->referral_id)->count() > 0) {
+            if($user->referral_id > 0)
                 $this->getUpChain($user->referral_id);
-            }
 
         } else {
 
