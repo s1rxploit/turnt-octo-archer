@@ -9,7 +9,7 @@ use Hash;
 class TestController extends Controller
 {
 
-    public $up_chain = [];
+    public $chain = [];
 
     public function createUser($name, $username, $email, $password)
     {
@@ -55,7 +55,7 @@ class TestController extends Controller
             //Find referral
             if (DB::table('users')->where('id', $user->user_id)->count() > 0) {
                 //user exists add to array
-                array_push($this->up_chain, $user->user_id);
+                array_push($this->chain, $user->user_id);
             }
 
 
@@ -69,9 +69,9 @@ class TestController extends Controller
         } else {
 
             //this was first user who started referral system
-            array_push($this->up_chain, $user_id);
+            array_push($this->chain, $user_id);
 
-            return dd($this->up_chain);
+            return dd($this->chain);
         }
     }
 
@@ -106,7 +106,7 @@ class TestController extends Controller
                 if(sizeof($u2)>0) {
 
                     foreach($u2 as $u3){
-                        array_push($this->up_chain, $u3);
+                        array_push($this->chain, $u3);
                     }
 
                     array_push($u, $u2);
@@ -122,12 +122,12 @@ class TestController extends Controller
         } else {
 
             //this was first user who started referral system
-            array_push($this->up_chain, $user_id);
+            array_push($this->chain, $user_id);
 
-            dd($this->up_chain);
+            dd($this->chain);
         }
 
-        dd($this->up_chain);
+        dd($this->chain);
     }
 
 }
