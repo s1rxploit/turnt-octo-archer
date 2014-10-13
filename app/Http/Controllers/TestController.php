@@ -63,6 +63,8 @@ class TestController extends Controller
             //this was first user who started referral system
             array_push($this->chain, $user_id);
 
+            array_splice($this->chain,0,1);
+
             return dd($this->chain);
         }
     }
