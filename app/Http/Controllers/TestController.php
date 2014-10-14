@@ -13,7 +13,8 @@ class TestController extends Controller
     public $chain = [];
 
     public function trialpay(){
-        dd(Input::all());
+        //check and return 1
+        return 1;
     }
 
     public function createUser($name, $username, $email, $password)
