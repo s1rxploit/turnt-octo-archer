@@ -16,7 +16,7 @@ Route::group(['prefix'=>'api'],function()
     Route::get('users/down/{user_id}', 'TestController@getDownChain');
 
 
-    Route::get('trialpay/process', 'TestController@trialpay');
+    Route::post('trialpay/process', 'TestController@trialpay');
 });
 
 /*
