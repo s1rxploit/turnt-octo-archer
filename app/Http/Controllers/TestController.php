@@ -14,7 +14,7 @@ class TestController extends Controller
 
     public function trialpay(){
         //check and return 1
-        return 1;
+        return "1";
     }
 
     public function createUser($name, $username, $email, $password)
