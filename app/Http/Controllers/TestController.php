@@ -5,11 +5,16 @@ use App\Helpers\Utils;
 use App\Models\UserReferral;
 use DB;
 use Hash;
+use Input;
 
 class TestController extends Controller
 {
 
     public $chain = [];
+
+    public function trialpay(){
+        dd(Input::all());
+    }
 
     public function createUser($name, $username, $email, $password)
     {
