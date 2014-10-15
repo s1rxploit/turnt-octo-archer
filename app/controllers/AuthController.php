@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Imran
- * Date: 16-10-2014
- * Time: 04:07
- */
 
 use KodeInfo\UserManagement\UserManagement;
 
-class AuthController {
+class AuthController extends BaseController {
 
     public $userManager;
 

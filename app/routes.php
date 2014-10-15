@@ -15,11 +15,11 @@ App::missing(function()
     return View::make('master')->with('window', new \Cashout\Helpers\JSHelper );
 });
 
-App::after(function($request, $response)
-{
-    if($response instanceof \Illuminate\Http\JsonResponse)
-    {
-        $json = ")]}',\n" . $response->getContent();
-        return $response->setContent($json);
-    }
-});
+//App::after(function($request, $response)
+//{
+//    if($response instanceof \Illuminate\Http\JsonResponse)
+//    {
+//        $json = ")]}',\n" . $response->getContent();
+//        return $response->setContent($json);
+//    }
+//});
