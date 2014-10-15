@@ -12,9 +12,39 @@ class TestController extends Controller
 
     public $chain = [];
 
-    public function trialpay(){
-        //check and return 1
-        \Log::error(Input::all());
+    public function trial_pay(){
+
+        $message_signature = $_SERVER['TrialPay-HMAC-MD5'];
+
+        // Recalculate the signature locally
+        $key = ',#GggcD5f%B5@-A';
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // the following is for POST notification
+            if (empty($HTTP_RAW_POST_DATA)) {
+                $recalculated_message_signature = hash_hmac('md5', file_get_contents('php://input'), $key);
+            } else {
+                $recalculated_message_signature = hash_hmac('md5', $HTTP_RAW_POST_DATA, $key);
+            }
+
+        } else {
+            // the following is for GET notification
+            $recalculated_message_signature = hash_hmac('md5', $_SERVER['QUERY_STRING'], $key);
+
+        }
+
+        if ($message_signature == $recalculated_message_signature) {
+
+            $sid = Input::get('sid');
+
+
+
+            \Log::error(Input::all());
+        } else {
+            \Log::error('Message not Authentic');
+        }
+        //check if user with that sid exists
+
 
         return 1;
     }

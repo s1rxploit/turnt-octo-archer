@@ -6,6 +6,7 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "~5.0",
+        "kodeinfo/user-management": "dev-master",
         "barryvdh/laravel-ide-helper": "1.11.*@dev"
 	},
 	"require-dev": {
