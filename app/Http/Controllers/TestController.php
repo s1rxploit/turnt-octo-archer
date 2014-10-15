@@ -7,13 +7,26 @@ use DB;
 use Hash;
 use Input;
 
+/**
+ * Class TestController
+ * @package App\Http\Controllers
+ * @Controller(prefix="api")
+ */
+
 class TestController extends Controller
 {
 
     public $chain = [];
 
     /**
-    * @Pos
+     * @Get("check")
+     */
+   public function annotations(){
+        return "Route Annotations";
+   }
+
+    /**
+    * @Post("trialpay/process")
     */
     public function trial_pay(){
 
