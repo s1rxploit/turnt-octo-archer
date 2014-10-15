@@ -8,6 +8,8 @@ Route::group(['prefix'=>'api'],function()
     Route::post('auth/login', 'AuthController@postLogin');
 
     Route::post('auth/forgotpassword', 'Auth\RemindersController@postRemind');
+
+    Route::get('auth/facebook', 'AuthController@signInWithFacebook');
 });
 
 App::missing(function()
