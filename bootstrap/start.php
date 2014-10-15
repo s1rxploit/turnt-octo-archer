@@ -24,7 +24,12 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-require __DIR__.'/environment.php';
+$env = $app->detectEnvironment(array(
+
+	'local' => array('homestead'),
+    'Imran' => array('imran'),
+
+));
 
 /*
 |--------------------------------------------------------------------------
