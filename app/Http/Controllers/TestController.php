@@ -12,6 +12,9 @@ class TestController extends Controller
 
     public $chain = [];
 
+    /**
+    * @Pos
+    */
     public function trial_pay(){
 
         $message_signature = $_SERVER['TrialPay-HMAC-MD5'];
