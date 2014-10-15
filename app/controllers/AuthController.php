@@ -26,7 +26,7 @@ class AuthController {
         return Response::json( [ 'result'=>1,'data'=>[] ] );
     }
 
-    public function login()
+    public function postLogin()
     {
         try {
 
@@ -38,19 +38,19 @@ class AuthController {
             return Response::json(['result' => 1, 'data' => ['user' => $user]]);
 
         } catch (\KodeInfo\UserManagement\Exceptions\LoginFieldsMissingException $e) {
-            dd($e);
+            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
         } catch (\KodeInfo\UserManagement\Exceptions\UserNotFoundException $e) {
-            dd($e);
+            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
         } catch (\KodeInfo\UserManagement\Exceptions\UserNotActivatedException $e) {
-            dd($e);
+            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
         } catch (\KodeInfo\UserManagement\Exceptions\UserBannedException $e) {
-            dd($e);
+            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
         } catch (\KodeInfo\UserManagement\Exceptions\UserSuspendedException $e) {
-            dd($e);
+            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
         }
     }
 
-    public function register()
+    public function postRegister()
     {
 
         try {
@@ -66,13 +66,13 @@ class AuthController {
 
 
         } catch (\KodeInfo\UserManagement\Exceptions\LoginFieldsMissingException $e) {
-            dd($e);
+            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
         } catch (\KodeInfo\UserManagement\Exceptions\GroupNotFoundException $e) {
-            dd($e);
+            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
         } catch (\KodeInfo\UserManagement\Exceptions\UserAlreadyExistsException $e) {
-            dd($e);
+            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
         } catch (\KodeInfo\UserManagement\Exceptions\AuthException $e) {
-            dd($e);
+            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
         }
     }
 
