@@ -3,7 +3,7 @@
 use KodeInfo\UserManagement\UserManagement;
 use Cashout\Helpers\Utils;
 
-class AuthController extends BaseController {
+class AuthController extends Controller {
 
     public $userManager;
 

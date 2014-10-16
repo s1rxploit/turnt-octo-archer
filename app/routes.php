@@ -10,6 +10,11 @@ Route::group(['prefix'=>'api'],function()
     Route::post('auth/forgotpassword', 'Auth\RemindersController@postRemind');
 
     Route::get('auth/facebook', 'AuthController@signInWithFacebook');
+
+    Route::group(['prefix'=>'trial_pay'],function()
+    {
+        Route::post('process', 'TrialPayController@process');
+    });
 });
 
 App::missing(function()
