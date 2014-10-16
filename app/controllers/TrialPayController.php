@@ -2,6 +2,7 @@
 
 use KodeInfo\UserManagement\UserManagement;
 use Cashout\Models\TrialPayResponse;
+use Cashout\Models\User;
 
 class TrialPayController extends Controller {
 
