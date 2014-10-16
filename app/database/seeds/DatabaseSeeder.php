@@ -1,10 +1,10 @@
 <?php
 
-use App\User;
+use Cashout\Models\User;
+use Cashout\Models\UserReferral;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Helpers\Utils;
-use App\Models\UserReferral;
+use Cashout\Helpers\Utils;
 
 class DatabaseSeeder extends Seeder
 {

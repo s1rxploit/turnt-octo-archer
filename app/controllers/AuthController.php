@@ -1,6 +1,7 @@
 <?php
 
 use KodeInfo\UserManagement\UserManagement;
+use Cashout\Helpers\Utils;
 
 class AuthController extends BaseController {
 
@@ -22,26 +23,12 @@ class AuthController extends BaseController {
 
     public function signInWithFacebook(){
 
-        // get data from input
-        $code = Input::get( 'code' );
-
-        // get fb service
         $fb = OAuth::consumer('Facebook');
 
-        // check if code is valid
-
-        // if code is provided get user data and sign in
-        if ( !empty($code) )
+        if ( Input::has('code') )
         {
 
-            // This was a callback request from google, get the token
-            $token = $fb->requestAccessToken( $code );
-
-            // Send a request with it
             $result = json_decode( $fb->request( '/me' ), true );
-
-            //$message = 'Your unique facebook user id is: ' . $result['id'] . ' and your name is ' . $result['name'];
-            //echo $message. "<br/>";
 
             if(isset($result['email'])){
                 //Is he registered user
@@ -77,7 +64,8 @@ class AuthController extends BaseController {
                                 "username" => '',
                                 "email" => $result['email'],
                                 "password" => $password,
-                                "password_confirmation" => $password],
+                                "password_confirmation" => $password,
+                                "referral_code" =>Utils::generateReferralCode() ],
                             null,
                             true);
 
@@ -95,20 +83,11 @@ class AuthController extends BaseController {
                     }
                 }
             }
-            //Var_dump
-            //display whole array().
-            dd($result);
 
-        }
-        // if not ask for permission first
-        else
-        {
-            // get fb authorization
+            return Response::json(['result' => 0, 'data' => ['Email permission required']]);
+
+        }else{
             $url = $fb->getAuthorizationUri();
-
-            //dd((string)$url);
-
-            // return to facebook login url
             return Redirect::away((string)$url);
         }
     }
@@ -118,9 +97,7 @@ class AuthController extends BaseController {
         try {
 
             $user = $this->userManager->login(["email" => Input::get('email'),
-                    "password" => Input::get('password')],
-                false,
-                true);
+                    "password" => Input::get('password')],false,true);
 
             return Response::json(['result' => 1, 'data' => ['user' => $user]]);
 
@@ -145,7 +122,8 @@ class AuthController extends BaseController {
                     "username" => Input::get('username'),
                     "email" => Input::get('email'),
                     "password" => Input::get('password'),
-                    "password_confirmation" => Input::get('password_confirmation')],
+                    "password_confirmation" => Input::get('password_confirmation'),
+                    "referral_code" =>Utils::generateReferralCode()],
                 null,
                 true);
 

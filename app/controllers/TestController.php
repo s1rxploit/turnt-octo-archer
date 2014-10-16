@@ -1,17 +1,12 @@
-<?php namespace App\Http\Controllers;
+<?php
 
 use Illuminate\Routing\Controller;
-use App\Helpers\Utils;
-use App\Models\UserReferral;
-use DB;
-use Hash;
-use Input;
-
-/**
- * Class TestController
- * @package App\Http\Controllers
- * @Controller(prefix="api")
- */
+use Cashout\Helpers\Utils;
+use Cashout\Models\UserReferral;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use KodeInfo\UserManagement\UserManagement;
 
 class TestController extends Controller
 {
