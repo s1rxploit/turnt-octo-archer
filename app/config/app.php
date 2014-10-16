@@ -121,8 +121,6 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-        'KodeInfo\UserManagement\UserManagementServiceProvider',
-        'Artdarek\OAuth\OAuthServiceProvider'
 	),
 
 	/*
