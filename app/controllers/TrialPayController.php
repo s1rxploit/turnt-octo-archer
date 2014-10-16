@@ -7,7 +7,9 @@ class TrialPayController extends Controller {
 
     public function process(){
 
-        $message_signature = $_SERVER['TrialPay-HMAC-MD5'];
+        //dd(Input::all());
+
+        $message_signature = Input::header('TrialPay-HMAC-MD5');
 
         // Recalculate the signature locally
         $key = Config::get('trial_pay.notification_key');
