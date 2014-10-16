@@ -12,19 +12,26 @@ class TrialPayController extends Controller {
         $message_signature = Input::header('TrialPay-HMAC-MD5');
 
         // Recalculate the signature locally
-        $key = Config::get('trial_pay.notification_key');
+        $m_key = Config::get('trial_pay.merchant_key');
+        $n_key = Config::get('trial_pay.notification_key');
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $request = Request::instance();
+        $HTTP_RAW_POST_DATA = $request->getContent();
+
+        dd([hash_hmac('md5', $HTTP_RAW_POST_DATA, $m_key),hash_hmac('md5', $HTTP_RAW_POST_DATA, $n_key)]);
+
+        if (Input::method() == 'POST') {
+
             // the following is for POST notification
             if (empty($HTTP_RAW_POST_DATA)) {
-                $recalculated_message_signature = hash_hmac('md5', file_get_contents('php://input'), $key);
+                $recalculated_message_signature = hash_hmac('md5', file_get_contents('php://input'), $m_key);
             } else {
-                $recalculated_message_signature = hash_hmac('md5', $HTTP_RAW_POST_DATA, $key);
+                $recalculated_message_signature = hash_hmac('md5', $HTTP_RAW_POST_DATA, $m_key);
             }
 
         } else {
             // the following is for GET notification
-            $recalculated_message_signature = hash_hmac('md5', $_SERVER['QUERY_STRING'], $key);
+            $recalculated_message_signature = hash_hmac('md5', $_SERVER['QUERY_STRING'], $m_key);
         }
 
         if ($message_signature == $recalculated_message_signature) {
