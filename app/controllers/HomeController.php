@@ -1,5 +1,7 @@
 <?php
 
+use \Cashout\Models\Notifications;
+
 class HomeController extends BaseController {
 
 	/*
@@ -19,5 +21,60 @@ class HomeController extends BaseController {
 	{
 		return View::make('hello');
 	}
+
+    public function archiveNotification($id){
+        try{
+
+            $n = Notifications::findOrFail($id);
+
+            $n->status = Notifications::NOTIFICATIONS_ARCHIVED;
+
+            $n->save();
+
+            return Response::json( [ 'result'=>0,'message'=>'Successfully archived notification' ] );
+        }catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+            return Response::json( [ 'result'=>0,'message'=>'Notification not found' ] );
+        }
+    }
+
+    public function unArchiveNotification($id){
+        try{
+
+            $n = Notifications::findOrFail($id);
+
+            $n->status = Notifications::NOTIFICATIONS_ACTIVE;
+
+            $n->save();
+
+            return Response::json( [ 'result'=>0,'message'=>'Successfully archived notification' ] );
+        }catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+            return Response::json( [ 'result'=>0,'message'=>'Notification not found' ] );
+        }
+    }
+
+    public function createNotification($user_id,$message){
+        $n = new Notifications();
+
+        $n->user_id = $user_id;
+        $n->message = $message;
+        $n->type = 'OFFER_WALL';
+        $n->status = Notifications::NOTIFICATIONS_ACTIVE;
+
+        $n->save();
+
+        return 1;
+    }
+
+    public function activeNotifications(){
+        return Notifications::getActiveNotifications();
+    }
+
+    public function allNotifications(){
+        return Notifications::getAllNotifications();
+    }
+
+    public function archivedNotifications(){
+        return Notifications::getArchivedNotifications();
+    }
 
 }

@@ -39,10 +39,10 @@ class TrialPayController extends Controller {
 
             \Log::error("**********Signature Match Successful");
 
-            //$user_id = Input::get('user_id');
-            $user_id = 1;
+            $user_id = Input::get('user_id');
+            //$user_id = 1;
 
-            \Log::error("**********Finding User ID".$user_id);
+            \Log::error("**********Finding User ID ".$user_id);
 
             //user exists
             $user = User::where('id',$user_id)->first();
@@ -89,5 +89,6 @@ class TrialPayController extends Controller {
 
         return 0;
     }
+
 
 } 

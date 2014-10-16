@@ -3,13 +3,21 @@
 Route::group(['prefix'=>'api'],function()
 {
 
-    Route::post('auth/register', 'AuthController@postRegister');
+    Route::group(['prefix'=>'auth'],function()
+    {
+        Route::post('register', 'AuthController@postRegister');
+        Route::post('login', 'AuthController@postLogin');
+        Route::get('facebook', 'AuthController@signInWithFacebook');
+    });
 
-    Route::post('auth/login', 'AuthController@postLogin');
-
-    Route::post('auth/forgotpassword', 'Auth\RemindersController@postRemind');
-
-    Route::get('auth/facebook', 'AuthController@signInWithFacebook');
+    Route::group(['prefix'=>'notifications'],function()
+    {
+        Route::get('archive/{notification_id}', 'HomeController@archiveNotification');
+        Route::get('create/{user_id}/{message}', 'HomeController@createNotification');
+        Route::get('all', 'HomeController@allNotifications');
+        Route::get('active', 'HomeController@activeNotifications');
+        Route::get('archived', 'HomeController@archivedNotifications');
+    });
 
     Route::group(['prefix'=>'trial_pay'],function()
     {
