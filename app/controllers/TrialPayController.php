@@ -32,14 +32,25 @@ class TrialPayController extends Controller {
             $recalculated_message_signature = hash_hmac('md5', $_SERVER['QUERY_STRING'], $key);
         }
 
+        \Log::error("**********Message Signature ".$message_signature);
+        \Log::error("**********Calculated Signature ".$recalculated_message_signature);
+
         if ($message_signature == $recalculated_message_signature) {
 
-            $user_id = Input::get('user_id');
+            \Log::error("**********Signature Match Successful");
+
+            //$user_id = Input::get('user_id');
+            $user_id = 1;
+
+            \Log::error("**********Finding User ID".$user_id);
 
             //user exists
             $user = User::where('id',$user_id)->first();
 
             if(sizeof($user)>0){
+
+                \Log::error("**********User Found ".$user->name);
+
                 //exists , increment coins and cash
                 $user->coins = $user->coins + Input::get('reward_amount');
                 $user->cash  = $user->cash + Input::get('reward');
@@ -64,6 +75,7 @@ class TrialPayController extends Controller {
                 return 1;
 
             }else{
+                \Log::error("**********User Not Found ");
                 //do nothing
                 \Log::error("**********UNAUTHENTICATED SID-REQUEST FOUND");
             }
