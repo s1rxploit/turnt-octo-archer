@@ -5,7 +5,6 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-        "kodeinfo/user-management": "dev-master",
         "artdarek/oauth-4-laravel": "dev-master"
 	},
 	"autoload": {
