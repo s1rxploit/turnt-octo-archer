@@ -30,7 +30,12 @@ Route::get('ok', function(){
 });
 
 Route::get('auth_user', function(){
-    dd(Auth::getUser());
+    dd(Auth::user());
+});
+
+Route::get('logout', function(){
+    Auth::logout();
+    Session::flush();
 });
 
 App::missing(function()
