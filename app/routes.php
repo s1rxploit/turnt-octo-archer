@@ -6,7 +6,7 @@ Route::group(['prefix'=>'api'],function()
     Route::group(['prefix'=>'auth'],function()
     {
         Route::post('register', 'AuthController@postRegister');
-        Route::post('login', 'AuthController@postLogin');
+        Route::get('login', 'AuthController@postLogin');
         Route::get('facebook', 'AuthController@signInWithFacebook');
     });
 
@@ -23,6 +23,14 @@ Route::group(['prefix'=>'api'],function()
     {
         Route::post('process', 'TrialPayController@process');
     });
+});
+
+Route::get('ok', function(){
+    dd(Session::all());
+});
+
+Route::get('auth_user', function(){
+    dd(Auth::getUser());
 });
 
 App::missing(function()

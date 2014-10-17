@@ -3,7 +3,7 @@
 use KodeInfo\UserManagement\UserManagement;
 use Cashout\Helpers\Utils;
 
-class AuthController extends Controller {
+class AuthController extends BaseController {
 
     public $userManager;
 
@@ -94,10 +94,13 @@ class AuthController extends Controller {
 
     public function postLogin()
     {
+        Auth::attempt(["email" => Input::get('email'),
+            "password" => Input::get('password')],true,true);
+
         try {
 
             $user = $this->userManager->login(["email" => Input::get('email'),
-                    "password" => Input::get('password')],false,true);
+                    "password" => Input::get('password')],true,true);
 
             return Response::json(['result' => 1, 'data' => ['user' => $user]]);
 
