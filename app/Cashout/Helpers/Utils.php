@@ -20,4 +20,9 @@ class Utils
        }
    }
 
+    static function prettyDate($date,$time=true) {
+        $format = $time ? "F jS, Y" : "F jS, Y";
+        return date($format,strtotime($date));
+    }
+
 }

@@ -1,5 +1,22 @@
 <?php
 
+//Customer Routes
+//Customer Filter
+Route::group(['prefix'=>'customer'],function()
+{
+    Route::get('/','HomeController@customerIndex');
+
+    //Archive a notification
+    Route::get('notifications/archive/{notification_id}', 'HomeController@archiveNotification');
+});
+
+
+Route::get('/customer/login','AuthController@getCustomerLogin');
+
+Route::group(['filter'=>'csrf'],function() {
+    Route::post('/customer/login', 'AuthController@postLogin');
+});
+
 Route::group(['prefix'=>'api'],function()
 {
 
@@ -10,14 +27,7 @@ Route::group(['prefix'=>'api'],function()
         Route::get('facebook', 'AuthController@signInWithFacebook');
     });
 
-    Route::group(['prefix'=>'notifications'],function()
-    {
-        Route::get('archive/{notification_id}', 'HomeController@archiveNotification');
-        Route::get('create/{user_id}/{message}', 'HomeController@createNotification');
-        Route::get('all', 'HomeController@allNotifications');
-        Route::get('active', 'HomeController@activeNotifications');
-        Route::get('archived', 'HomeController@archivedNotifications');
-    });
+
 
     Route::group(['prefix'=>'trial_pay'],function()
     {
@@ -36,11 +46,6 @@ Route::get('auth_user', function(){
 Route::get('logout', function(){
     Auth::logout();
     Session::flush();
-});
-
-App::missing(function()
-{
-    return View::make('master')->with('window', new \Cashout\Helpers\JSHelper );
 });
 
 //App::after(function($request, $response)

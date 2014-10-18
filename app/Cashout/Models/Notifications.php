@@ -10,9 +10,24 @@ class Notifications extends \Eloquent
     const NOTIFICATIONS_ACTIVE = 1;
     const NOTIFICATIONS_ARCHIVED = 2;
 
+    public static function archiveNotifications($id){
+        try{
+
+            $n = Notifications::findOrFail($id);
+
+            $n->status = Notifications::NOTIFICATIONS_ARCHIVED;
+
+            $n->save();
+
+            return true;
+        }catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+            return false;
+        }
+    }
+
     public static function getActiveNotifications(){
 
-        $user_id = Auth::getUser()->getId();
+        $user_id = Auth::user()->id;
 
         return DB::table('notifications')
             ->where('user_id',$user_id)
@@ -23,7 +38,7 @@ class Notifications extends \Eloquent
 
     public static function getAllNotifications(){
 
-        $user_id = Auth::getUser()->getId();
+        $user_id = Auth::user()->id;
 
         return DB::table('notifications')
             ->where('user_id',$user_id)
@@ -33,7 +48,7 @@ class Notifications extends \Eloquent
 
     public static function getArchivedNotifications(){
 
-        $user_id = Auth::getUser()->getId();
+        $user_id = Auth::user()->id;
 
         return DB::table('notifications')
             ->where('user_id',$user_id)

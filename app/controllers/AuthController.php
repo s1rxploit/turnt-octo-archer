@@ -7,13 +7,16 @@ class AuthController extends BaseController {
 
     public $userManager;
 
-    function __construct(UserManagement $userManager)
-    {
+    function __construct(UserManagement $userManager){
         $this->userManager = $userManager;
     }
 
-    public function isLoggedIn(){
-        dd(Auth::check());
+    public function getCustomerLogin(){
+        return View::make('customer.login');
+    }
+
+    public function getAdminLogin(){
+        return View::make('admin.login');
     }
 
     public function logout(){
@@ -94,15 +97,13 @@ class AuthController extends BaseController {
 
     public function postLogin()
     {
-        Auth::attempt(["email" => Input::get('email'),
-            "password" => Input::get('password')],true,true);
 
         try {
 
-            $user = $this->userManager->login(["email" => Input::get('email'),
-                    "password" => Input::get('password')],true,true);
+            $this->userManager->login(["email" => Input::get('email'),
+                    "password" => Input::get('password')],Input::has('remember_me'),true);
 
-            return Response::json(['result' => 1, 'data' => ['user' => $user]]);
+            return Response::json(['result' => 1, 'data' => ['user' => Auth::user()]]);
 
         } catch (\KodeInfo\UserManagement\Exceptions\LoginFieldsMissingException $e) {
             return Response::json(['result' => 0, 'data' => $e->getErrors()]);
@@ -151,9 +152,4 @@ class AuthController extends BaseController {
     public function reset_password(){
 
     }
-
-    public function login_with_fb(){
-
-    }
-
 } 

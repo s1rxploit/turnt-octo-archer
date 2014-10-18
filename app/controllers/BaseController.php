@@ -2,6 +2,8 @@
 
 class BaseController extends Controller {
 
+    public $data ;
+
 	/**
 	 * Setup the layout used by the controller.
 	 *
