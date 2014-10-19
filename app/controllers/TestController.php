@@ -90,9 +90,9 @@ class TestController extends Controller
     public function referUser($referral_id, $user_id)
     {
 
-        $count = UserReferral::where('user_id', $user_id)->where('referral_id', $referral_id)->count();
+        $referral = UserReferral::where('user_id', $user_id)->where('referral_id', $referral_id)->get();
 
-        if ($count > 0) {
+        if (sizeof($referral)>0) {
             return "Already referred this user";
         } else {
 

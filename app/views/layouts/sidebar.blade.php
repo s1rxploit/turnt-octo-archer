@@ -42,10 +42,10 @@
 				<a href="" class="expand"><span>Profile</span> <i class="icon-user4"></i></a>
 				<ul>
 					<li>
-						<a href="">Edit Profile</a>
+						<a href="/customer/profile/edit">Edit Profile</a>
 					</li>
 					<li>
-						<a href="">Change Password</a>
+						<a href="/customer/profile/change_password">Change Password</a>
 					</li>
 				</ul>
 			</li>
@@ -63,16 +63,16 @@
 			</li>
 
 			<li>
-				<a href="" class="expand"><span>Referrals</span> <i class="icon-users"></i></a>
+				<a class="expand"><span>Referrals</span> <i class="icon-users"></i></a>
 				<ul>
 					<li>
-						<a href="">My Referrals</a>
+						<a href="/customer/referral/my_referrals">My Referrals</a>
 					</li>
 					<li>
-						<a href="">Pending Referrals</a>
+						<a href="/customer/referral/pending">Pending Referrals</a>
 					</li>
 					<li>
-						<a href="">Add New Referral</a>
+						<a href="/customer/referral/new">Add New Referral</a>
 					</li>
 				</ul>
 			</li>

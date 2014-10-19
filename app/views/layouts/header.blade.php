@@ -14,13 +14,13 @@
 
 	<ul class="nav navbar-nav navbar-right collapse" id="navbar-icons">
 		<li class="dropdown">
-			<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-users"></i> My Referrals</a>
+			<a href="/customer/referral/my_referrals" ><i class="icon-users"></i> My Referrals</a>
 		</li>
 		<li class="dropdown">
-			<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user4"></i> New Referral</a>
+			<a href="/customer/referral/new"><i class="icon-user4"></i> New Referral</a>
 		</li>
 		<li class="dropdown">
-			<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-coin"></i> Withdraw Funds</a>
+			<a href="/customer/funds/withdraw"><i class="icon-coin"></i> Withdraw Funds</a>
 		</li>
 		<li class="user dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown"><img src="{{Auth::user()->avatar}}" alt=""><span>{{Auth::user()->name}}</span><i class="caret"></i></a>

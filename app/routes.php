@@ -8,14 +8,22 @@ Route::group(['prefix'=>'customer'],function()
 
     //Archive a notification
     Route::get('notifications/archive/{notification_id}', 'HomeController@archiveNotification');
+    Route::get('referral/new', 'ReferralController@createNewReferrals');
+    Route::get('referral/my_referrals', 'ReferralController@myReferrals');
+    Route::get('referral/pending', 'ReferralController@pendingReferrals');
+    Route::get('profile/edit', 'HomeController@editCustomerProfile');
+    Route::post('profile/edit', 'HomeController@storeCustomerProfile');
+
+    Route::group(['filter'=>'csrf'],function() {
+        Route::post('login', 'AuthController@postLogin');
+        Route::post('referral/new', 'ReferralController@storeNewReferrals');
+    });
 });
 
 
 Route::get('/customer/login','AuthController@getCustomerLogin');
 
-Route::group(['filter'=>'csrf'],function() {
-    Route::post('/customer/login', 'AuthController@postLogin');
-});
+
 
 Route::group(['prefix'=>'api'],function()
 {

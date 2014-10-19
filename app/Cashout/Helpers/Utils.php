@@ -25,4 +25,23 @@ class Utils
         return date($format,strtotime($date));
     }
 
+    static function imageUpload($file,$folder)
+    {
+
+        $timestamp = time();
+        $ext = $file->guessClientExtension();
+        $name = $timestamp . "_photo." . $ext;
+
+        if(!\File::exists(public_path() . '/uploads/'.$folder)){
+            \File::makeDirectory(public_path() . '/uploads/'.$folder);
+        }
+
+        // move uploaded file from temp to uploads directory
+        if ($file->move(public_path() . '/uploads/'.$folder.'/', $name)) {
+            return '/uploads/'.$folder.'/'.$name;
+        } else {
+            return false;
+        }
+    }
+
 }

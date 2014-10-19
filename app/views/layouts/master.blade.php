@@ -12,8 +12,8 @@
 		{{HTML::style("/assets/css/icons.min.css")}}
 		{{HTML::style("http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext")}}
 
-		{{HTML::script("http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")}}
-		{{HTML::script("http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js")}}
+		{{HTML::script("/assets/js/jquery-1.10.2.min.js")}}
+		{{HTML::script("/assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js")}}
 		{{HTML::script("/assets/js/plugins/charts/sparkline.min.js")}}
 		{{HTML::script("/assets/js/plugins/forms/uniform.min.js")}}
 		{{HTML::script("/assets/js/plugins/forms/select2.min.js")}}
