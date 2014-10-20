@@ -6,7 +6,7 @@ class HomeController extends BaseController
 {
 
     public function index(){
-        return "On UI";
+        return "On INDEX";
     }
 
     public function customerIndex()
@@ -35,6 +35,7 @@ class HomeController extends BaseController
     {
 
         $name = Input::get('name');
+        $username = Input::get('username');
         $birthday = Input::get('birthday');
         $bio = Input::get('bio', '');
         $gender = Input::get('gender');
@@ -42,11 +43,18 @@ class HomeController extends BaseController
         $country = Input::get('country');
         $old_avatar = Input::get('old_avatar');
 
+
+        if(\Cashout\Models\User::where('username',$username)->where('id','!=',Auth::user()->id)->count()>0){
+            Session::flash('error_msg', 'Username is already taken by other user . Please enter a new username');
+            return Redirect::back()->withInput(Input::all(Input::except(['_token'])));
+        }
+
         try {
 
             $profile = \Cashout\Models\User::findOrFail(Auth::user()->id);
 
             $profile->name = $name;
+            $profile->username = $username;
             $profile->birthday = $birthday;
             $profile->bio = $bio;
             $profile->gender = $gender;
@@ -62,7 +70,7 @@ class HomeController extends BaseController
 
         } catch (\Exception $e) {
             Session::flash('error_msg', 'Unable to update profile');
-            return Redirect::back();
+            return Redirect::back()->withInput(Input::all(Input::except(['_token'])));;
         }
 
     }

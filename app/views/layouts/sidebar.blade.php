@@ -13,7 +13,7 @@
 				<div class="thumbnail">
 					<div class="thumb"><img alt="" src="{{Auth::user()->avatar}}">
 						<div class="thumb-options">
-							<span><a href="/customer/profile" class="btn btn-icon btn-success"><i class="icon-pencil"></i></a></span>
+							<span><a href="/customer/profile/edit" class="btn btn-icon btn-success"><i class="icon-pencil"></i></a></span>
 						</div>
 					</div>
 					<div class="caption text-center">

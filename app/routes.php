@@ -5,6 +5,7 @@
 
 Route::get('/','HomeController@index');
 Route::get('/customer/login','AuthController@getCustomerLogin');
+Route::get('/customer/facebook', 'AuthController@signInWithFacebook');
 Route::get('/logout','AuthController@logout');
 
 Route::group(['filter'=>'csrf'],function() {

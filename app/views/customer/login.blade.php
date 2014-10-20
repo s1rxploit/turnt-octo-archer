@@ -86,6 +86,13 @@
           <button type="submit" class="btn btn-warning pull-right"><i class="icon-menu2"></i> Sign in</button>
         </div>
       </div>
+
+      <div class="row form-actions">
+              <div class="col-xs-12">
+                <a href="/customer/facebook" type="submit" class="btn btn-info btn-block pull-right"><i class="icon-facebook"></i> Login with Facebook</a>
+              </div>
+
+            </div>
     </div>
   </form>
 </div>

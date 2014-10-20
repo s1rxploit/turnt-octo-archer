@@ -43,38 +43,38 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Username</label>
 			<div class="col-sm-10">
-				<input disabled name="username" type="text" class="form-control" value="{{$profile->username}}">
+				<input name="username" type="text" class="form-control" value="{{Input::old('username',$profile->username)}}">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Name</label>
 			<div class="col-sm-10">
-				<input name="name" type="text" class="form-control" value="{{$profile->name}}">
+				<input name="name" type="text" class="form-control" value="{{Input::old('name',$profile->name)}}">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Date of Birth</label>
 			<div class="col-sm-10">
-                 <input id="birthday" name="birthday" type="text" class="form-control" value="{{date('d-m-Y',strtotime($profile->birthday))}}">
+                 <input id="birthday" name="birthday" type="text" class="form-control" value="{{Input::old('birthday',date('d-m-Y',strtotime($profile->birthday)))}}">
             </div>
 		</div>
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Bio</label>
 			<div class="col-sm-10">
-				<textarea name="bio" class="form-control">{{$profile->bio}}</textarea>
+				<textarea name="bio" class="form-control">{{Input::old('bio',$profile->bio)}}</textarea>
 			</div>
 		</div>
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Gender</label>
 			<div class="col-sm-1">
-				<input value="male" name="gender" type="radio" {{($profile->gender=="male"||$profile->gender=="m")?"checked":""}}> Male
+				<input value="male" name="gender" type="radio" {{Input::old('gender',$profile->gender)=="male"?"checked":""}}> Male
 			</div>
 			<div class="col-sm-1">
-            	<input value="female" name="gender" type="radio" {{($profile->gender=="female"||$profile->gender=="f")?"checked":""}}> Female
+            	<input value="female" name="gender" type="radio" {{Input::old('gender',$profile->gender)=="female"?"checked":""}}> Female
             </div>
 
 		</div>
@@ -82,7 +82,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Mobile No</label>
 			<div class="col-sm-10">
-				<input name="mobile_no" type="text" class="form-control" value="{{$profile->mobile_no}}">
+				<input name="mobile_no" type="text" class="form-control" value="{{Input::old('mobile_no',$profile->mobile_no)}}">
 			</div>
 		</div>
 		
@@ -90,8 +90,8 @@
 			<label class="col-sm-2 control-label">Country</label>
 			<div class="col-sm-10">
 				<select name="country" class="form-control">
-				    <option {{$profile->country=="india"?"selected":""}} value="india">India</option>
-				    <option {{$profile->country=="usa"?"selected":""}} value="usa">USA</option>
+				    <option {{Input::old('country',$profile->country)=="india"?"selected":""}} value="india">India</option>
+				    <option {{Input::old('country',$profile->country)=="usa"?"selected":""}} value="usa">USA</option>
 				</select>
 			</div>
 		</div>

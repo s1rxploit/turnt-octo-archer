@@ -26,10 +26,10 @@
 			<a class="dropdown-toggle" data-toggle="dropdown"><img src="{{Auth::user()->avatar}}" alt=""><span>{{Auth::user()->name}}</span><i class="caret"></i></a>
 			<ul class="dropdown-menu dropdown-menu-right icons-right">
 				<li>
-					<a href="/customer/profile"><i class="icon-user"></i> Profile</a>
+					<a href="/customer/profile/edit"><i class="icon-user"></i> Profile</a>
 				</li>
 				<li>
-					<a href="/customer/settings"><i class="icon-cog"></i> Settings</a>
+					<a href="/customer/profile/change_password"><i class="icon-cog"></i> Settings</a>
 				</li>
 				<li>
 					<a href="/logout"><i class="icon-exit"></i> Logout</a>
