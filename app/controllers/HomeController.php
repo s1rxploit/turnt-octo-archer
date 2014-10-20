@@ -1,6 +1,7 @@
 <?php
 
 use \Cashout\Models\Notifications;
+use \Cashout\Models\News;
 
 class HomeController extends BaseController
 {
@@ -14,8 +15,38 @@ class HomeController extends BaseController
 
         $this->data['notifications'] = Notifications::getActiveNotifications();
         $this->data['archived_notifications'] = Notifications::getArchivedNotifications();
+        $this->data['news'] = News::orderBy('created_at','DESC')->get();
 
         return View::make('customer.index', $this->data);
+    }
+
+    public function getChangePassword(){
+        return View::make('customer.change_password');
+    }
+
+    public function storeChangePassword(){
+
+        $current_password = Input::get('current_password','');
+        $password = Input::get('password','');
+        $password_confirmation = Input::get('password_confirmation','');
+
+        if($password==$password_confirmation){
+            if(Auth::validate(['email'=>Auth::user()->email,'password'=>$current_password])){
+                $user = \Cashout\Models\User::find(Auth::user()->id);
+                $user->password = Hash::make($password);
+                $user->save();
+
+                Session::flash('success_msg', 'Password changed successfully');
+                return Redirect::back();
+
+            }else{
+                Session::flash('error_msg', 'Invalid password entered');
+                return Redirect::back();
+            }
+        }else{
+            Session::flash('error_msg', 'New Password and Confirm Password should be same');
+            return Redirect::back();
+        }
     }
 
     public function adminIndex()
@@ -35,7 +66,7 @@ class HomeController extends BaseController
     {
 
         $name = Input::get('name');
-        $username = Input::get('username');
+        //$username = Input::get('username');
         $birthday = Input::get('birthday');
         $bio = Input::get('bio', '');
         $gender = Input::get('gender');
@@ -44,17 +75,17 @@ class HomeController extends BaseController
         $old_avatar = Input::get('old_avatar');
 
 
-        if(\Cashout\Models\User::where('username',$username)->where('id','!=',Auth::user()->id)->count()>0){
+        /*if(\Cashout\Models\User::where('username',$username)->where('id','!=',Auth::user()->id)->count()>0){
             Session::flash('error_msg', 'Username is already taken by other user . Please enter a new username');
             return Redirect::back()->withInput(Input::all(Input::except(['_token'])));
-        }
+        }*/
 
         try {
 
             $profile = \Cashout\Models\User::findOrFail(Auth::user()->id);
 
             $profile->name = $name;
-            $profile->username = $username;
+           // $profile->username = $username;
             $profile->birthday = $birthday;
             $profile->bio = $bio;
             $profile->gender = $gender;

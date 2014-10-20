@@ -13,6 +13,120 @@ class AuthController extends BaseController
         $this->userManager = $userManager;
     }
 
+    public function getCustomerRegister()
+    {
+        return View::make('customer.register');
+    }
+
+    public function postCustomerRegister()
+    {
+
+        $name = Input::get('name');
+        $email = Input::get('email');
+        $password = Input::get('password');
+        $password_confirmation = Input::get('password_confirmation');
+
+        try {
+
+            $this->userManager->createUser(["name" => $name,
+                    "email" => $email,
+                    "password" => $password,
+                    "password_confirmation" => $password_confirmation,
+                    "referral_code" => Utils::generateReferralCode()],
+                'customer',
+                false);
+
+            Session::flash('success_msg', "Registration Successful . Please activate your account by clicking activation link we sent to your email - " . $email);
+            return Redirect::back();
+
+        } catch (\KodeInfo\UserManagement\Exceptions\AuthException $e) {
+            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
+            return Redirect::back();
+        }
+    }
+
+    public function getCustomerForgotPassword()
+    {
+        return View::make("customer.forgot_password");
+    }
+
+    public function postCustomerForgotPassword()
+    {
+        $email = Input::get("email");
+
+        $user = \Cashout\Models\User::where('email', $email)->first();
+
+        if (sizeof($user) <= 0) {
+            Session::flash("error_msg", "Account not found . Please enter valid email");
+            return Redirect::back();
+        } else {
+            $reset_code = $this->userManager->generateResetCode();
+            $user->reset_password_code = $reset_code;
+            $user->reset_requested_on = \Carbon\Carbon::now();
+            $user->save();
+
+            //TODO Create email template and sent
+
+            Session::flash('success_msg','Please click on the link we sent to your email to reset password');
+            return Redirect::to('/customer/forgot-password');
+        }
+
+    }
+
+    public function getCustomerReset($email,$code){
+
+        if(strlen($email)<=0 || strlen($code)<=0){
+            Session::flash("error_msg","Invalid Request . Please reset your password");
+            return Redirect::to('/customer/forgot-password');
+        }
+
+        //Check code and email
+        $user = \Cashout\Models\User::where('email',$email)->where('reset_password_code',$code)->first();
+
+        if(sizeof($user)<=0){
+            Session::flash("error_msg","Invalid Request . Please reset your password");
+            return Redirect::to('/customer/forgot-password');
+        }else{
+            //check for 24 hrs for token
+            $reset_requested_on = \Carbon\Carbon::createFromFormat('Y-m-d G:i:s',$user->reset_requested_on);
+            $present_day = \Carbon\Carbon::now();
+
+            if($reset_requested_on->addDay()>$present_day){
+                //Show new password view
+                return View::make('customer.reset_password',['email'=>$email,'code'=>$code]);
+            }else{
+                Session::flash("error_msg","Password change token expired . Please reset your password");
+                return Redirect::to('/customer/forgot-password');
+            }
+        }
+    }
+
+    public function postCustomerResetNewPassword(){
+
+        $password = Input::get('password','');
+        $password_confirmation = Input::get('password_confirmation','');
+
+        if($password==$password_confirmation){
+
+            $validate_reset = \Cashout\Models\User::where('email',Input::get('email',''))->where('reset_password_code',Input::get('code',''))->first();
+
+            if(sizeof($validate_reset)>0){
+                $user = \Cashout\Models\User::where('email',Input::get('email'))->first();
+                $user->password = Hash::make($password);
+                $user->save();
+
+                Session::flash('success_msg', 'Password changed successfully');
+                return Redirect::to('/customer/login');
+            }else{
+                Session::flash('error_msg', 'Invalid password entered');
+                return Redirect::back();
+            }
+        }else{
+            Session::flash('error_msg', 'New Password and Confirm Password should be same');
+            return Redirect::back();
+        }
+    }
+
     public function getCustomerLogin()
     {
 
@@ -47,7 +161,7 @@ class AuthController extends BaseController
 
         if (Input::has('code')) {
 
-            $fb->requestAccessToken( Input::get('code') );
+            $fb->requestAccessToken(Input::get('code'));
 
             $result = json_decode($fb->request('/me'), true);
 
@@ -81,7 +195,7 @@ class AuthController extends BaseController
                     }
                 } else {
 
-                    $password = str_random(8);
+                    $password = "311311";//str_random(8);
 
                     //not registered so register
                     try {
@@ -127,57 +241,15 @@ class AuthController extends BaseController
 
     public function postLogin()
     {
-
-
         try {
-
             $this->userManager->login(["email" => Input::get('email'),
                 "password" => Input::get('password')], Input::has('remember_me'), true);
 
             return Redirect::to('/customer');
 
-        } catch (\KodeInfo\UserManagement\Exceptions\LoginFieldsMissingException $e) {
-            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
-            return Redirect::back();
-        } catch (\KodeInfo\UserManagement\Exceptions\UserNotFoundException $e) {
-            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
-            return Redirect::back();
-        } catch (\KodeInfo\UserManagement\Exceptions\UserNotActivatedException $e) {
-            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
-            return Redirect::back();
-        } catch (\KodeInfo\UserManagement\Exceptions\UserBannedException $e) {
-            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
-            return Redirect::back();
-        } catch (\KodeInfo\UserManagement\Exceptions\UserSuspendedException $e) {
-            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
-            return Redirect::back();
-        }
-    }
-
-    public function postRegister()
-    {
-
-        try {
-            $user = $this->userManager->createUser(["name" => Input::get('name'),
-                    "username" => Input::get('username'),
-                    "email" => Input::get('email'),
-                    "password" => Input::get('password'),
-                    "password_confirmation" => Input::get('password_confirmation'),
-                    "referral_code" => Utils::generateReferralCode()],
-                null,
-                true);
-
-            return Response::json(['result' => 1, 'data' => ['user' => $user]]);
-
-
-        } catch (\KodeInfo\UserManagement\Exceptions\LoginFieldsMissingException $e) {
-            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
-        } catch (\KodeInfo\UserManagement\Exceptions\GroupNotFoundException $e) {
-            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
-        } catch (\KodeInfo\UserManagement\Exceptions\UserAlreadyExistsException $e) {
-            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
         } catch (\KodeInfo\UserManagement\Exceptions\AuthException $e) {
-            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
+            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
+            return Redirect::back();
         }
     }
 

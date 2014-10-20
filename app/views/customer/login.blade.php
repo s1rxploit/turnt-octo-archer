@@ -44,7 +44,7 @@
 <div class="navbar navbar-inverse" role="navigation">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-right"><span class="sr-only">Toggle navbar</span><i class="icon-grid3"></i></button>
-    <a class="navbar-brand" href="#"><img src="/assets/images/logo.png" alt="Cashout"></a></div>
+    <a class="navbar-brand" href="#"><img style="width: 100px;margin-top: -16px;" src="/assets/images/logo.png" alt="Cashout"></a></div>
 
 </div>
 <!-- /navbar -->
@@ -60,8 +60,8 @@
     <div class="popup-header"><a href="#" class="pull-left"><i class="icon-user-plus"></i></a><span class="text-semibold">Customer Login</span>
       <div class="btn-group pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs"></i></a>
         <ul class="dropdown-menu icons-right dropdown-menu-right">
-          <li><a href="/forgot-password"><i class="icon-info"></i> Forgot password?</a></li>
-          <li><a href="/register"><i class="icon-support"></i> New User </a></li>
+          <li><a href="/customer/forgot-password"><i class="icon-info"></i> Forgot password?</a></li>
+          <li><a href="/customer/register"><i class="icon-user4"></i> New User </a></li>
         </ul>
       </div>
     </div>
@@ -86,6 +86,13 @@
           <button type="submit" class="btn btn-warning pull-right"><i class="icon-menu2"></i> Sign in</button>
         </div>
       </div>
+
+      <div class="row form-actions">
+                    <div class="col-xs-12">
+                      <a href="/customer/forgot-password"> Forgot Password ?</a>
+                    </div>
+
+                  </div>
 
       <div class="row form-actions">
               <div class="col-xs-12">

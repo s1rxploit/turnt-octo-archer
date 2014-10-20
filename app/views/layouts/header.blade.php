@@ -2,7 +2,7 @@
 <div class="navbar navbar-inverse" role="navigation">
 
 	<div class="navbar-header">
-		<a class="navbar-brand" href="#"><img src="/assets/images/logo.png" alt="Cashout"></a><a class="sidebar-toggle"><i class="icon-menu2"></i></a>
+		<a class="navbar-brand" href="#"><img style="width: 100px;margin-top: -16px;" src="/assets/images/logo.png" alt="Cashout"></a><a class="sidebar-toggle"><i class="icon-menu2"></i></a>
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-icons">
 			<span class="sr-only">Toggle navbar</span><i class="icon-grid3"></i>
 		</button>
@@ -29,7 +29,7 @@
 					<a href="/customer/profile/edit"><i class="icon-user"></i> Profile</a>
 				</li>
 				<li>
-					<a href="/customer/profile/change_password"><i class="icon-cog"></i> Settings</a>
+					<a href="/customer/profile/change_password"><i class="icon-lock"></i> Change Password</a>
 				</li>
 				<li>
 					<a href="/logout"><i class="icon-exit"></i> Logout</a>
