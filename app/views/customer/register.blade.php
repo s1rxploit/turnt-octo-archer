@@ -82,6 +82,18 @@
                 <label>Confirm Password</label>
                 <input type="password" class="form-control" name="password_confirmation" placeholder="Password">
                 <i class="icon-lock form-control-feedback"></i></div>
+
+       <div class="row form-actions">
+              <div class="col-xs-12">
+                <div class="checkbox checkbox-success">
+                  <label>
+                    <input type="checkbox" name="terms_conditions" value="1" class="styled">
+                    I accept the Terms of Service and Privacy Policy </label>
+                </div>
+              </div>
+
+            </div>
+
       <div class="row form-actions">
         <div class="col-xs-6">
 

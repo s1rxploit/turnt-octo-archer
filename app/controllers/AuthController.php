@@ -26,6 +26,12 @@ class AuthController extends BaseController
         $password = Input::get('password');
         $password_confirmation = Input::get('password_confirmation');
 
+
+        if(!Input::has('terms_conditions')||Input::get('terms_conditions')!=1){
+            Session::flash('error_msg', "Please accept terms of service & privacy policy");
+            return Redirect::back();
+        }
+
         try {
 
             $this->userManager->createUser(["name" => $name,
