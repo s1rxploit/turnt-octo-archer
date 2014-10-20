@@ -135,13 +135,17 @@
 						<div class="block">
 							<ul class="media-list">
 								<li class="media">
+								<!--
 									<a class="pull-left" href="#"><img class="media-object" src="images/demo/users/face25.png" alt=""></a>
+								-->
+								    @foreach($news as $news_item)
 									<div class="media-body">
 										<div class="clearfix">
-											<a href="#" class="media-heading">Eugene Kopyov</a><span class="media-notice">December 10, 2013 / 10:20 pm</span>
+											<a href="/news/{{$news_item->slug}}" class="media-heading">{{$news_item->title}}</a><span class="media-notice">{{Cashout\Helpers\Utils::prettyDate($news_item->created_at,true)}}</span>
 										</div>
-										Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+										{{Str::limit(trim(strip_tags($news_item->description)),300)}}
 									</div>
+									@endforeach
 								</li>
 							</ul>
 						</div>
