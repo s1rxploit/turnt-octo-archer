@@ -44,4 +44,15 @@ class Utils
         }
     }
 
+    static function buildMessages($messages){
+
+        $response="";
+
+        foreach($messages as $message){
+            $response.="<li style='margin-left:10px;'>{$message}</li>";
+        }
+
+        return $response;
+    }
+
 }

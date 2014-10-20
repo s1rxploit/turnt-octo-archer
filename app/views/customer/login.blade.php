@@ -49,8 +49,14 @@
 </div>
 <!-- /navbar -->
 <!-- Login wrapper -->
+
+
+
 <div class="login-wrapper">
-  <form action="/customer/login" role="form">
+
+    @include('layouts.notify')
+
+  <form action="/customer/login" method="POST" role="form">
     <div class="popup-header"><a href="#" class="pull-left"><i class="icon-user-plus"></i></a><span class="text-semibold">Customer Login</span>
       <div class="btn-group pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs"></i></a>
         <ul class="dropdown-menu icons-right dropdown-menu-right">

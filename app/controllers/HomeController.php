@@ -5,6 +5,10 @@ use \Cashout\Models\Notifications;
 class HomeController extends BaseController
 {
 
+    public function index(){
+        return "On UI";
+    }
+
     public function customerIndex()
     {
 
@@ -36,7 +40,7 @@ class HomeController extends BaseController
         $gender = Input::get('gender');
         $mobile_no = Input::get('mobile_no');
         $country = Input::get('country');
-        $old_photo = Input::get('old_photo');
+        $old_avatar = Input::get('old_avatar');
 
         try {
 
@@ -48,7 +52,7 @@ class HomeController extends BaseController
             $profile->gender = $gender;
             $profile->mobile_no = $mobile_no;
             $profile->country = $country;
-            $profile->photo = Input::hasFile('avatar') ? Utils::imageUpload(Input::file('avatar'), 'profile') : $old_photo;
+            $profile->avatar = Input::hasFile('avatar') ? \Cashout\Helpers\Utils::imageUpload(Input::file('avatar'), 'profile') : $old_avatar;
 
             $profile->save();
 

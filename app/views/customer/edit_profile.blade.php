@@ -10,7 +10,7 @@
 
 @include('layouts.notify')
 
-{{Form::open(['url'=>'/customer/profile/edit','method'=>'post','class'=>'form-horizontal form-bordered','role'=>'form'])}}
+{{Form::open(['url'=>'/customer/profile/edit','method'=>'post','files'=>true,'class'=>'form-horizontal form-bordered','role'=>'form'])}}
 
 <!-- Button trigger modal -->
 
@@ -28,8 +28,8 @@
 			<div class="col-sm-10">
 				<p><img class="img-circle" style="width:80px;" src="{{$profile->avatar}}"/>
 				</p>
-				<input name="photo" type="file" class="form-control">
-				<input name="old_photo" type="hidden" value="{{$profile->avatar}}">
+				<input name="avatar" type="file" class="form-control">
+				<input name="old_avatar" type="hidden" value="{{$profile->avatar}}">
 			</div>
 		</div>
 
@@ -37,7 +37,6 @@
 			<label class="col-sm-2 control-label">Email</label>
 			<div class="col-sm-10">
 				<input disabled name="email" type="text" class="form-control" value="{{$profile->email}}">
-				<input name="user_id" type="hidden" class="form-control" value="{{$profile->id}}">
 			</div>
 		</div>
 
@@ -58,7 +57,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Date of Birth</label>
 			<div class="col-sm-10">
-                 <input type="text" class="form-control" data-mask="dd-mm-yyyy" value="{{date('d-m-Y',strtotime($profile->birthday))}}">
+                 <input id="birthday" name="birthday" type="text" class="form-control" value="{{date('d-m-Y',strtotime($profile->birthday))}}">
             </div>
 		</div>
 		
@@ -72,10 +71,10 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Gender</label>
 			<div class="col-sm-1">
-				<input name="gender" type="radio" {{($profile->gender=="male"||$profile->gender=="m")?"checked":""}}> Male
+				<input value="male" name="gender" type="radio" {{($profile->gender=="male"||$profile->gender=="m")?"checked":""}}> Male
 			</div>
 			<div class="col-sm-1">
-            	<input name="gender" type="radio" {{($profile->gender=="female"||$profile->gender=="f")?"checked":""}}> Female
+            	<input value="female" name="gender" type="radio" {{($profile->gender=="female"||$profile->gender=="f")?"checked":""}}> Female
             </div>
 
 		</div>
@@ -105,4 +104,14 @@
 </div>
 {{Form::close()}}
 
+@stop
+
+@section('scripts')
+{{HTML::style("/assets/plugins/datepicker/css/datepicker3.css")}}
+{{HTML::script("/assets/plugins/datepicker/js/bootstrap-datepicker.js")}}
+<script type="text/javascript">
+    $('#birthday').datepicker({
+       format: "dd-mm-yyyy"
+    });
+</script>
 @stop

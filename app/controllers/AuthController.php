@@ -12,6 +12,17 @@ class AuthController extends BaseController {
     }
 
     public function getCustomerLogin(){
+
+        if(Auth::check()){
+
+            $userManager = new KodeInfo\UserManagement\UserManagement(Auth::user()->id);
+
+            if($userManager->user->isCustomer()){
+                return Redirect::to('/customer');
+            }
+
+        }
+
         return View::make('customer.login');
     }
 
@@ -21,7 +32,7 @@ class AuthController extends BaseController {
 
     public function logout(){
         $this->userManager->logout();
-        return Response::json( [ 'result'=>1,'data'=>[] ] );
+        return Redirect::to('/');
     }
 
     public function signInWithFacebook(){
@@ -98,23 +109,34 @@ class AuthController extends BaseController {
     public function postLogin()
     {
 
+
         try {
 
             $this->userManager->login(["email" => Input::get('email'),
                     "password" => Input::get('password')],Input::has('remember_me'),true);
 
-            return Response::json(['result' => 1, 'data' => ['user' => Auth::user()]]);
+            return Redirect::to('/customer');
 
         } catch (\KodeInfo\UserManagement\Exceptions\LoginFieldsMissingException $e) {
-            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
+            dd($e->getErrors());
+            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
+            return Redirect::back();
         } catch (\KodeInfo\UserManagement\Exceptions\UserNotFoundException $e) {
-            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
+            dd($e->getErrors());
+            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
+            return Redirect::back();
         } catch (\KodeInfo\UserManagement\Exceptions\UserNotActivatedException $e) {
-            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
+            dd($e->getErrors());
+            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
+            return Redirect::back();
         } catch (\KodeInfo\UserManagement\Exceptions\UserBannedException $e) {
-            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
+            dd($e->getErrors());
+            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
+            return Redirect::back();
         } catch (\KodeInfo\UserManagement\Exceptions\UserSuspendedException $e) {
-            return Response::json(['result' => 0, 'data' => $e->getErrors()]);
+            dd($e->getErrors());
+            Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
+            return Redirect::back();
         }
     }
 

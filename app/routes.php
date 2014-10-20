@@ -2,7 +2,17 @@
 
 //Customer Routes
 //Customer Filter
-Route::group(['prefix'=>'customer'],function()
+
+Route::get('/','HomeController@index');
+Route::get('/customer/login','AuthController@getCustomerLogin');
+Route::get('/logout','AuthController@logout');
+
+Route::group(['filter'=>'csrf'],function() {
+    Route::post('/customer/login', 'AuthController@postLogin');
+    Route::post('/admin/login', 'AuthController@postLogin');
+});
+
+Route::group(['prefix'=>'customer','before' => 'customer_auth'],function()
 {
     Route::get('/','HomeController@customerIndex');
 
@@ -12,17 +22,12 @@ Route::group(['prefix'=>'customer'],function()
     Route::get('referral/my_referrals', 'ReferralController@myReferrals');
     Route::get('referral/pending', 'ReferralController@pendingReferrals');
     Route::get('profile/edit', 'HomeController@editCustomerProfile');
-    Route::post('profile/edit', 'HomeController@storeCustomerProfile');
 
     Route::group(['filter'=>'csrf'],function() {
-        Route::post('login', 'AuthController@postLogin');
         Route::post('referral/new', 'ReferralController@storeNewReferrals');
+        Route::post('profile/edit', 'HomeController@storeCustomerProfile');
     });
 });
-
-
-Route::get('/customer/login','AuthController@getCustomerLogin');
-
 
 
 Route::group(['prefix'=>'api'],function()
@@ -35,32 +40,8 @@ Route::group(['prefix'=>'api'],function()
         Route::get('facebook', 'AuthController@signInWithFacebook');
     });
 
-
-
     Route::group(['prefix'=>'trial_pay'],function()
     {
         Route::post('process', 'TrialPayController@process');
     });
 });
-
-Route::get('ok', function(){
-    dd(Session::all());
-});
-
-Route::get('auth_user', function(){
-    dd(Auth::user());
-});
-
-Route::get('logout', function(){
-    Auth::logout();
-    Session::flush();
-});
-
-//App::after(function($request, $response)
-//{
-//    if($response instanceof \Illuminate\Http\JsonResponse)
-//    {
-//        $json = ")]}',\n" . $response->getContent();
-//        return $response->setContent($json);
-//    }
-//});
