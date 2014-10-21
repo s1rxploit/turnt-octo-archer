@@ -43,22 +43,7 @@
     <ul id="org" style="display:none">
     <li>
     <label>{{Auth::user()->name}}</label>
-    <ul>
-        <li>
-            <label>2</label>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-        </li>
-        <li>
-            <label>3</label>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-        </li>
-    </ul>
+    {{$tree}}
     </li>
     </ul>
 

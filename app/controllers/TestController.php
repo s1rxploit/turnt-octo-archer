@@ -77,32 +77,12 @@ class TestController extends Controller
         //[1]=>[2 ,3]
         $this->recursiveCGS($users,$this->chain[$user_id]);
 
-        Log::error($this->chain);
-        dd($this->cgs_string($this->chain));
 
-        dd($this->chain_depth($this->chain));
+        //dd($this->cgs_string);
+        //Log::error($this->chain);
+        return View::make('customer.referral_tree',['tree'=>$this->cgs_string]);
 
-    }
-
-    public function cgs_string($arr){
-
-        foreach($arr as $item){
-            $keys = array_keys($item);
-
-            $temp_string = "<ul>";
-
-            foreach($keys as $key){
-                $temp_string.="<li><label>$key</label>";
-                $this->cgs_string($item[$key]);
-                $temp_string.="</li>";
-            }
-
-            $temp_string.="<ul>";
-
-            $this->cgs_string.=$temp_string;
-        }
-
-        return $this->cgs_string;
+        //dd($this->chain_depth($this->chain));
 
     }
 
@@ -123,14 +103,20 @@ class TestController extends Controller
 
         if($this->chain_depth($this->chain) <= 8 ){
 
+            $this->cgs_string.="<ul>";
+
             // [1]=>[2,3] $arr is at [1]
             for($i=0;$i<sizeof($user_ids);$i++) {
+
+
 
                 //index 2
                 $users = UserReferral::where('referral_id', $user_ids[$i])->where('user_id', '>', 0)->lists('user_id');
 
                 //index 2 users 4,5
                 //by reference on 2 nd array
+                $this->cgs_string.="<li><label>$arr[$i]</label>";
+
                 unset($arr[$i]);
 
                 $arr[$user_ids[$i]] = $users;
@@ -140,7 +126,11 @@ class TestController extends Controller
                     $this->recursiveCGS($users, $arr[$user_ids[$i]]);
                 }
 
+                $this->cgs_string.="</li>";
+
             }
+
+            $this->cgs_string.="</ul>";
 
         }
 
