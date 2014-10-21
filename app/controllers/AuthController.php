@@ -24,9 +24,12 @@ class AuthController extends BaseController
 
     public function showCGS(){
 
+        $cgs = new \Cashout\Helpers\CGS();
 
+        $response = $cgs->getCGS(Auth::user()->id);
 
-        return View::make('customer.referral_tree');
+        return View::make('customer.referral_tree',['tree'=>$response['cgs_string']]);
+
     }
 
     public function postCustomerRegister()

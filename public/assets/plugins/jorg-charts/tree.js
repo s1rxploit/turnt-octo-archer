@@ -24,7 +24,7 @@
 				  min: -40,
 				  max: 500,
 				  value: 50,
-				  step: 10,
+				  step: 5,
 				  slide: function( event, ui ) {
 					var zoom_val = ui.value;
 					var zoom = zoom_default + (zoom_default * zoom_val/100);
@@ -66,10 +66,14 @@
             .end()
             .html();
 
+
         //Increaments the node count which is used to link the source list and the org chart
         nodeCount++;
         $node.data("tree-node", nodeCount);
+
         $nodeDiv = $("<div>").addClass("node cgsnode")
+            .attr("data-toggle", "tooltip")
+            .attr("data-placement", "bottom")
             .data("tree-node", nodeCount)
             .append($nodeContent);
 
@@ -135,6 +139,7 @@
                     var $left = $("<td> </td>").addClass("line left top");
                     var $right = $("<td> </td>").addClass("line right top");
                     $linesRow.append($left).append($right);
+
                 });
 
                 // horizontal line shouldn't extend beyond the first and last child branches
@@ -163,6 +168,7 @@
         if ($node.attr('class') != undefined) {
             var classList = $node.attr('class').split(/\s+/);
             $.each(classList, function(index, item) {
+
                 if (item == 'collapsed') {
                     //console.log($node);
                     $nodeRow.nextAll('tr').hide()
@@ -174,6 +180,11 @@
                 }
             });
         }
+
+        if ($node.attr('title') != undefined) {
+            $nodeDiv.attr('data-original-title',$node.attr('title'));
+        }
+
 
         $table.append($tbody);
         $appendTo.append($table);
