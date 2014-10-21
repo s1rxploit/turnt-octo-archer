@@ -15,7 +15,7 @@
 		<h6 class="panel-title"><i class="icon-user-plus2"></i> Offer Wall</h6>
 	</div>
 	<div class="panel-body">
-<iframe name="survey_iframe" id="survey_iframe" src="https://www.superrewards-offers.com/super/offers?h=iomqixkwasv.822194950894&uid=304" frameborder="0" width="100%" height="1200" scrolling="no" ></iframe>
+<iframe name="offer_walls" id="offer_walls" src="https://www.trialpay.com/dispatch/a23ea0770fb4bc863a83874c5b96197c?sid={{Auth::user()->id}}&tph=f8246899e6b0194c&toi=Y4mVms&cn=US&hmac=e00cb5a3fe6d8bf9aebf59313acf977f&message=sid%3D2%26timestamp%3D1413891165" frameborder="0" width="100%" height="1200" scrolling="no" ></iframe>
 
 	</div>
 </div>
