@@ -99,7 +99,6 @@ class HomeController extends BaseController
             return Redirect::back();
 
         } catch (\Exception $e) {
-            dd($e);
             Session::flash('error_msg', 'Unable to update profile');
             return Redirect::back()->withInput(Input::all(Input::except(['_token','avatar'])));
         }
