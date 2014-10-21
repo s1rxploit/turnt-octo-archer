@@ -18,6 +18,10 @@ class TrialPayController extends Controller {
         $request = Request::instance();
         $HTTP_RAW_POST_DATA = $request->getContent();
 
+        if(Input::get('user_id')=="sample-sid"){
+            return 1;
+        }
+
         if (Input::method() == 'POST') {
 
             // the following is for POST notification
