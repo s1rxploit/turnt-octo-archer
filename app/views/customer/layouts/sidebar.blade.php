@@ -81,6 +81,16 @@
 				</ul>
 			</li>
 
+			<li>
+            				<a class="expand"><span>Cash Generation</span> <i class="icon-coin"></i></a>
+            				<ul>
+            					<li>
+            						<a href="/customer/cgs">CGS Tree</a>
+            					</li>
+
+            				</ul>
+            			</li>
+
 		</ul>
 		<!-- /main navigation -->
 	</div>

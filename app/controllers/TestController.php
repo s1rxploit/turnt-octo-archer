@@ -12,6 +12,9 @@ class TestController extends Controller
 {
 
     public $chain = [];
+    public $cgs_string = "";
+    public $depth = 0;
+    public $chain_depth = 0;
 
     public $userManager;
 
@@ -20,72 +23,6 @@ class TestController extends Controller
         $this->userManager = $userManager;
     }
 
-    public function isLoggedIn(){
-        dd(Auth::check());
-    }
-
-    public function logout(){
-        $this->userManager->logout();
-        return Response::json( [ 'result'=>1,'data'=>[] ] );
-    }
-
-    public function login()
-    {
-        try {
-
-            $user = $this->userManager->login(["email" => Input::get('email'),
-                    "password" => Input::get('password')],
-                false,
-                true);
-
-            return Response::json(['result' => 1, 'data' => ['user' => $user]]);
-
-        } catch (\KodeInfo\UserManagement\Exceptions\LoginFieldsMissingException $e) {
-            dd($e);
-        } catch (\KodeInfo\UserManagement\Exceptions\UserNotFoundException $e) {
-            dd($e);
-        } catch (\KodeInfo\UserManagement\Exceptions\UserNotActivatedException $e) {
-            dd($e);
-        } catch (\KodeInfo\UserManagement\Exceptions\UserBannedException $e) {
-            dd($e);
-        } catch (\KodeInfo\UserManagement\Exceptions\UserSuspendedException $e) {
-            dd($e);
-        }
-    }
-
-    public function register()
-    {
-
-        try {
-            $user = $this->userManager->createUser(["name" => Input::get('name'),
-                    "username" => Input::get('username'),
-                    "email" => Input::get('email'),
-                    "password" => Input::get('password'),
-                    "password_confirmation" => Input::get('password_confirmation')],
-                null,
-                true);
-
-            return Response::json(['result' => 1, 'data' => ['user' => $user]]);
-
-
-        } catch (\KodeInfo\UserManagement\Exceptions\LoginFieldsMissingException $e) {
-            dd($e);
-        } catch (\KodeInfo\UserManagement\Exceptions\GroupNotFoundException $e) {
-            dd($e);
-        } catch (\KodeInfo\UserManagement\Exceptions\UserAlreadyExistsException $e) {
-            dd($e);
-        } catch (\KodeInfo\UserManagement\Exceptions\AuthException $e) {
-            dd($e);
-        }
-    }
-
-    public function forgot_password(){
-
-    }
-
-    public function reset_password(){
-
-    }
 
     public function referUser($referral_id, $user_id)
     {
@@ -130,6 +67,99 @@ class TestController extends Controller
             return dd($this->chain);
         }
     }
+
+    public function getCGS($user_id){
+
+        $users = UserReferral::where('referral_id', $user_id)->where('user_id','>',0)->lists('user_id');
+
+        $this->chain[$user_id] = $users;
+
+        //[1]=>[2 ,3]
+        $this->recursiveCGS($users,$this->chain[$user_id]);
+
+        Log::error($this->chain);
+        dd($this->cgs_string($this->chain));
+
+        dd($this->chain_depth($this->chain));
+
+    }
+
+    public function cgs_string($arr){
+
+        foreach($arr as $item){
+            $keys = array_keys($item);
+
+            $temp_string = "<ul>";
+
+            foreach($keys as $key){
+                $temp_string.="<li><label>$key</label>";
+                $this->cgs_string($item[$key]);
+                $temp_string.="</li>";
+            }
+
+            $temp_string.="<ul>";
+
+            $this->cgs_string.=$temp_string;
+        }
+
+        return $this->cgs_string;
+
+    }
+
+    public function chain_depth($arr, $n = 0){
+
+        $max = $n;
+
+        foreach ($arr as $item) {
+            if (is_array($item)) {
+                $max = max($max, $this->chain_depth($item, $n + 1));
+            }
+        }
+
+        return $max;
+    }
+
+    public function recursiveCGS($user_ids,&$arr){
+
+        if($this->chain_depth($this->chain) <= 8 ){
+
+            // [1]=>[2,3] $arr is at [1]
+            for($i=0;$i<sizeof($user_ids);$i++) {
+
+                //index 2
+                $users = UserReferral::where('referral_id', $user_ids[$i])->where('user_id', '>', 0)->lists('user_id');
+
+                //index 2 users 4,5
+                //by reference on 2 nd array
+                unset($arr[$i]);
+
+                $arr[$user_ids[$i]] = $users;
+
+                if(sizeof($users)>0) {
+                    //[2]=>[4,5] reference [2]=>
+                    $this->recursiveCGS($users, $arr[$user_ids[$i]]);
+                }
+
+            }
+
+        }
+
+        return;
+
+        /* [1] => [2=>[
+                     4=>[],
+                     6=>[]
+                    ],
+                  3=>[
+                    7=>[],
+                    8=>[]]
+                 ]
+         */
+
+
+    }
+
+    // 2 , 3
 
     public function getDownChain($user_id)
     {
