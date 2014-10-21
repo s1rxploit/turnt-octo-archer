@@ -13,6 +13,7 @@ Route::get('/customer/register','AuthController@getCustomerRegister');
 Route::get('/customer/forgot-password','AuthController@getCustomerForgotPassword');
 Route::get('/customer/reset/{email}/{code}','AuthController@getCustomerReset');
 Route::get('/customer/facebook', 'AuthController@signInWithFacebook');
+Route::get('/customer/earnings', 'AuthController@startEarnings');
 Route::get('/logout','AuthController@logout');
 
 Route::group(['filter'=>'csrf'],function() {

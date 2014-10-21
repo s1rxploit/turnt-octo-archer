@@ -54,7 +54,7 @@
 
 <div class="login-wrapper">
 
-    @include('layouts.notify')
+    @include('customer.layouts.notify')
 
   <form action="/customer/forgot-password" method="POST" role="form">
     <div class="popup-header"><a href="#" class="pull-left"><i class="icon-user-plus"></i></a><span class="text-semibold">Forgot Password</span>

@@ -54,7 +54,7 @@
 
 <div class="login-wrapper">
 
-    @include('layouts.notify')
+    @include('customer.layouts.notify')
 
   <form action="/customer/reset/change-password" method="POST" role="form">
 

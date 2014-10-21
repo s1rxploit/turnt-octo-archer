@@ -34,6 +34,10 @@
 		<!-- Main navigation -->
 		<ul class="navigation">
 
+		    <li>
+        		<a class="btn btn-block btn-success" href="/customer/earnings"> <i class="icon-cash"></i> <span>Start Earnings </span> </a>
+        	</li>
+
 			<li {{!isset(Request::segments()[0])?"class='active'":""}}>
 				<a href="/customer"> <i class="icon-screen2"></i> <span>Dashboard </span> </a>
 			</li>

@@ -13,6 +13,10 @@ class AuthController extends BaseController
         $this->userManager = $userManager;
     }
 
+    public function startEarnings(){
+        return View::make('customer.start_earnings');
+    }
+
     public function getCustomerRegister()
     {
         return View::make('customer.register');
