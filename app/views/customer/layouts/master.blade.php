@@ -11,9 +11,10 @@
 		{{HTML::style("/assets/css/styles.min.css")}}
 		{{HTML::style("/assets/css/icons.min.css")}}
 		{{HTML::style("http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext")}}
+		{{HTML::style("//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css")}}
 
 		{{HTML::script("/assets/js/jquery-1.10.2.min.js")}}
-		{{HTML::script("/assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js")}}
+		{{HTML::script("//code.jquery.com/ui/1.11.0/jquery-ui.js")}}
 		{{HTML::script("/assets/js/plugins/charts/sparkline.min.js")}}
 		{{HTML::script("/assets/js/plugins/forms/uniform.min.js")}}
 		{{HTML::script("/assets/js/plugins/forms/select2.min.js")}}

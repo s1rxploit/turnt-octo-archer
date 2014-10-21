@@ -14,6 +14,7 @@ Route::get('/customer/forgot-password','AuthController@getCustomerForgotPassword
 Route::get('/customer/reset/{email}/{code}','AuthController@getCustomerReset');
 Route::get('/customer/facebook', 'AuthController@signInWithFacebook');
 Route::get('/customer/earnings', 'AuthController@startEarnings');
+Route::get('/customer/cgs', 'AuthController@showCGS');
 Route::get('/logout','AuthController@logout');
 
 Route::group(['filter'=>'csrf'],function() {
@@ -47,6 +48,8 @@ Route::group(['prefix'=>'customer','before' => 'customer_auth'],function()
 
 Route::group(['prefix'=>'api'],function()
 {
+
+    Route::get('down/{id}', 'TestController@getCGS');
 
     Route::group(['prefix'=>'auth'],function()
     {

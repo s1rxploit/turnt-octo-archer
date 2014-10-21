@@ -22,6 +22,13 @@ class AuthController extends BaseController
         return View::make('customer.register');
     }
 
+    public function showCGS(){
+
+
+
+        return View::make('customer.referral_tree');
+    }
+
     public function postCustomerRegister()
     {
 
