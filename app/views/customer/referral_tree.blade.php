@@ -16,12 +16,13 @@
 	color 				: #F38630;
 	-moz-border-radius 	: 8px;
 }
-	.node label{
-		font-family 	: tahoma;
-		font-size 		: 14px;
-		line-height 	: 11px;
-		padding-top 		: 30px;
-	}
+
+.node label{
+	font-family 	: tahoma;
+	font-size 		: 14px;
+	line-height 	: 11px;
+	padding-top 	: 30px;
+}
 </style>
 @stop
 
@@ -47,21 +48,24 @@
     </li>
     </ul>
 
-    <div id="chart" class="orgChart">
-                	<div class="zoom">
-                    	<span class="zoom_control">+</span>
-                		<div id="zoom_slider"></div>
-                        <span class="zoom_control">-</span>
-                    </div>
 
+    <div id="chart" style="height:500px;padding-bottom: 80px;" class="orgChart">
+       <div class="zoom">
+          <span class="zoom_control">+</span>
+          <div id="zoom_slider"></div>
+          <span class="zoom_control">-</span>
+       </div>
+    </div>
+
+    </div>
 </div>
-
 @stop
 
 @section('scripts')
 {{HTML::script("/assets/plugins/jorg-charts/jquery.jOrgChart.js")}}
 {{HTML::style("/assets/plugins/jorg-charts/tree.css")}}
 {{HTML::script("/assets/plugins/jorg-charts/tree.js")}}
+{{HTML::script("/assets/plugins/jorg-charts/jquery.kinetic.js")}}
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -70,6 +74,9 @@
                 dragAndDrop  : false,
                 slider:true
             });
+
+            $('#chart .cgsnode').tooltip();
+            var $scroller = $('#chart').kinetic();
     });
 </script>
 @stop
