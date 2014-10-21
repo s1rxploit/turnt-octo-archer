@@ -108,14 +108,13 @@ class TestController extends Controller
             // [1]=>[2,3] $arr is at [1]
             for($i=0;$i<sizeof($user_ids);$i++) {
 
-
-
                 //index 2
                 $users = UserReferral::where('referral_id', $user_ids[$i])->where('user_id', '>', 0)->lists('user_id');
 
                 //index 2 users 4,5
                 //by reference on 2 nd array
-                $this->cgs_string.="<li><label>$arr[$i]</label>";
+                $find_user = DB::table('users')->where('id',$arr[$i])->first();
+                $this->cgs_string.="<li><label>$find_user->name</label>";
 
                 unset($arr[$i]);
 
