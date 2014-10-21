@@ -33,7 +33,7 @@ class Utils
         $name = $timestamp . "_photo." . $ext;
 
         if(!\File::exists(public_path() . '/uploads/'.$folder)){
-            \File::makeDirectory(public_path() . '/uploads/'.$folder);
+            \File::makeDirectory(public_path() . '/uploads/'.$folder,777);
         }
 
         // move uploaded file from temp to uploads directory
