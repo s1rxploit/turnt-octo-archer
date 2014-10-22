@@ -95,5 +95,30 @@ class CGS {
 
     }
 
+    public function getUpChain($user_id)
+    {
+
+        //Find if any one referred this user if yes always will be only 1
+        $user = UserReferral::where('user_id', $user_id)->first();
+
+        if (!empty($user)) {
+
+            array_push($this->chain, $user->user_id);
+
+            //User have a referral .
+            if($user->referral_id > 0)
+                $this->getUpChain($user->referral_id);
+
+        } else {
+
+            //this was first user who started referral system
+            array_push($this->chain, $user_id);
+
+            array_splice($this->chain,0,1);
+
+            return dd($this->chain);
+        }
+    }
+
 
 } 

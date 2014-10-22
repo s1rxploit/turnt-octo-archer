@@ -3,7 +3,7 @@
 use KodeInfo\UserManagement\UserManagement;
 use Cashout\Helpers\Utils;
 
-class AuthController extends BaseController
+class CustomerAuthController extends BaseController
 {
 
     public $userManager;
@@ -13,26 +13,41 @@ class AuthController extends BaseController
         $this->userManager = $userManager;
     }
 
-    public function startEarnings(){
-        return View::make('customer.start_earnings');
+    public function getChangePassword(){
+        return View::make('customer.change_password');
     }
 
-    public function getCustomerRegister()
+    public function postChangePassword(){
+
+        $current_password = Input::get('current_password','');
+        $password = Input::get('password','');
+        $password_confirmation = Input::get('password_confirmation','');
+
+        if($password==$password_confirmation){
+            if(Auth::validate(['email'=>Auth::user()->email,'password'=>$current_password])){
+                $user = \Cashout\Models\User::find(Auth::user()->id);
+                $user->password = Hash::make($password);
+                $user->save();
+
+                Session::flash('success_msg', 'Password changed successfully');
+                return Redirect::back();
+
+            }else{
+                Session::flash('error_msg', 'Invalid password entered');
+                return Redirect::back();
+            }
+        }else{
+            Session::flash('error_msg', 'New Password and Confirm Password should be same');
+            return Redirect::back();
+        }
+    }
+
+    public function getRegister()
     {
         return View::make('customer.register');
     }
 
-    public function showCGS(){
-
-        $cgs = new \Cashout\Helpers\CGS();
-
-        $response = $cgs->getCGS(Auth::user()->id);
-
-        return View::make('customer.referral_tree',['tree'=>$response['cgs_string']]);
-
-    }
-
-    public function postCustomerRegister()
+    public function postRegister()
     {
 
         $name = Input::get('name');
@@ -65,12 +80,12 @@ class AuthController extends BaseController
         }
     }
 
-    public function getCustomerForgotPassword()
+    public function getForgotPassword()
     {
         return View::make("customer.forgot_password");
     }
 
-    public function postCustomerForgotPassword()
+    public function postForgotPassword()
     {
         $email = Input::get("email");
 
@@ -93,7 +108,7 @@ class AuthController extends BaseController
 
     }
 
-    public function getCustomerReset($email,$code){
+    public function getReset($email,$code){
 
         if(strlen($email)<=0 || strlen($code)<=0){
             Session::flash("error_msg","Invalid Request . Please reset your password");
@@ -121,7 +136,7 @@ class AuthController extends BaseController
         }
     }
 
-    public function postCustomerResetNewPassword(){
+    public function postReset(){
 
         $password = Input::get('password','');
         $password_confirmation = Input::get('password_confirmation','');
@@ -147,7 +162,7 @@ class AuthController extends BaseController
         }
     }
 
-    public function getCustomerLogin()
+    public function getLogin()
     {
 
         if (Auth::check()) {
@@ -163,15 +178,10 @@ class AuthController extends BaseController
         return View::make('customer.login');
     }
 
-    public function getAdminLogin()
-    {
-        return View::make('admin.login');
-    }
-
     public function logout()
     {
         $this->userManager->logout();
-        return Redirect::to('/');
+        return Redirect::to('/customer/login');
     }
 
     public function signInWithFacebook()
@@ -273,13 +283,4 @@ class AuthController extends BaseController
         }
     }
 
-    public function forgot_password()
-    {
-
-    }
-
-    public function reset_password()
-    {
-
-    }
 } 

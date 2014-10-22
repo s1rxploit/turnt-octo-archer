@@ -3,14 +3,9 @@
 use \Cashout\Models\Notifications;
 use \Cashout\Models\News;
 
-class HomeController extends BaseController
-{
+class CustomerController extends BaseController {
 
-    public function index(){
-        return "On INDEX";
-    }
-
-    public function customerIndex()
+    public function index()
     {
 
         $this->data['notifications'] = Notifications::getActiveNotifications();
@@ -20,41 +15,21 @@ class HomeController extends BaseController
         return View::make('customer.index', $this->data);
     }
 
-    public function getChangePassword(){
-        return View::make('customer.change_password');
+    public function startEarnings(){
+        return View::make('customer.start_earnings');
     }
 
-    public function storeChangePassword(){
+    public function showCGS(){
 
-        $current_password = Input::get('current_password','');
-        $password = Input::get('password','');
-        $password_confirmation = Input::get('password_confirmation','');
+        $cgs = new \Cashout\Helpers\CGS();
 
-        if($password==$password_confirmation){
-            if(Auth::validate(['email'=>Auth::user()->email,'password'=>$current_password])){
-                $user = \Cashout\Models\User::find(Auth::user()->id);
-                $user->password = Hash::make($password);
-                $user->save();
+        $response = $cgs->getCGS(Auth::user()->id);
 
-                Session::flash('success_msg', 'Password changed successfully');
-                return Redirect::back();
+        return View::make('customer.referral_tree',['tree'=>$response['cgs_string']]);
 
-            }else{
-                Session::flash('error_msg', 'Invalid password entered');
-                return Redirect::back();
-            }
-        }else{
-            Session::flash('error_msg', 'New Password and Confirm Password should be same');
-            return Redirect::back();
-        }
     }
 
-    public function adminIndex()
-    {
-        return View::make('admin.index');
-    }
-
-    public function editCustomerProfile()
+    public function editProfile()
     {
 
         $this->data['profile'] = Auth::user();
@@ -62,7 +37,7 @@ class HomeController extends BaseController
         return View::make('customer.edit_profile', $this->data);
     }
 
-    public function storeCustomerProfile()
+    public function updateProfile()
     {
 
         $name = Input::get('name');
@@ -85,7 +60,7 @@ class HomeController extends BaseController
             $profile = \Cashout\Models\User::findOrFail(Auth::user()->id);
 
             $profile->name = $name;
-           // $profile->username = $username;
+            // $profile->username = $username;
             $profile->birthday = $birthday;
             $profile->bio = $bio;
             $profile->gender = $gender;
@@ -120,4 +95,4 @@ class HomeController extends BaseController
 
     }
 
-}
+} 

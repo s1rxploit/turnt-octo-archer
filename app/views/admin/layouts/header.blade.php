@@ -32,7 +32,7 @@
 					<a href="/customer/profile/change_password"><i class="icon-lock"></i> Change Password</a>
 				</li>
 				<li>
-					<a href="/customer/logout"><i class="icon-exit"></i> Logout</a>
+					<a href="/logout"><i class="icon-exit"></i> Logout</a>
 				</li>
 			</ul>
 		</li>

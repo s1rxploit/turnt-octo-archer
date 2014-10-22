@@ -4,7 +4,7 @@ use Cashout\Models\UserReferral;
 
 class ReferralController extends BaseController {
 
-    public function createNewReferrals(){
+    public function getNewReferrals(){
 
         return View::make('customer.referral.create_referral');
     }
@@ -29,7 +29,7 @@ class ReferralController extends BaseController {
         return View::make('customer.referral.pending_referrals',$this->data);
     }
 
-    public function storeNewReferrals(){
+    public function postNewReferrals(){
         if(Input::has('emails')){
 
             $emails = explode(',',Input::get('emails'));
