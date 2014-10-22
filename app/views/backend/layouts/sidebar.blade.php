@@ -95,6 +95,20 @@
                         			</li>
             @endif
 
+             @if(Auth::check()&&Auth::user()->isAdmin())
+            				<li>
+                                    				<a class="expand"><span>Users</span> <i class="icon-users"></i></a>
+                                    				<ul>
+                                    					<li>
+                                    						<a href="/admin/users/all">All Users</a>
+                                    					</li>
+            <li>
+                                    						<a href="/admin/users/add_admin">Add Admin</a>
+                                    					</li>
+                                    				</ul>
+                                    			</li>
+                        @endif
+
 			<li>
             				<a class="expand"><span>Cash Generation</span> <i class="icon-coin"></i></a>
             				<ul>

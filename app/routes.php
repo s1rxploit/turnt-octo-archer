@@ -39,21 +39,24 @@ Route::group(['before' => 'customer_auth'], function () {
 });
 
 Route::group(['before' => 'admin_auth','prefix'=>'admin'], function () {
+
     Route::get('news/add', 'AdminController@createNews');
-    Route::get('news/delete/{news_id}', 'AdminController@deleteNews');
-    Route::get('news/update/{news_id}', 'AdminController@getNewsUpdate');
-    Route::get('news/all', 'AdminController@allNews');
-    Route::get('users', 'AdminController@getUsers');
+    Route::get('news/delete/{news_id}', 'AdminNewsController@deleteNews');
+    Route::get('news/update/{news_id}', 'AdminNewsController@getNewsUpdate');
+    Route::get('news/all', 'AdminNewsController@allNews');
+
+    Route::get('users/all', 'AdminUsersController@allUsers');
+    Route::get('users/delete/{user_id}', 'AdminUsersController@deleteUsers');
+    Route::get('users/add_admin', 'AdminUsersController@createAdmin');
     Route::get('users/ban/{user_id}', 'AdminController@banUser');
     Route::get('users/un-ban/{user_id}', 'AdminController@unBanUser');
     Route::get('users/un-suspend/{user_id}', 'AdminController@unSuspendUser');
     Route::get('users/suspend/{user_id}/{hrs}', 'AdminController@suspendUser');
 
     Route::group(['filter' => 'csrf'], function () {
-        Route::post('profile/edit', 'AdminController@updateProfile');
-        Route::post('profile/change_password', 'AdminAuthController@postChangePassword');
-        Route::post('news/add', 'AdminController@storeNews');
-        Route::post('news/update/{news_id}', 'AdminController@postNewsUpdate');
+        Route::post('users/add_admin', 'AdminUsersController@storeAdmin');
+        Route::post('news/add', 'AdminNewsController@storeNews');
+        Route::post('news/update/{news_id}', 'AdminNewsController@postNewsUpdate');
     });
 
 });
