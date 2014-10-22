@@ -6,7 +6,7 @@ class ReferralController extends BaseController {
 
     public function getNewReferrals(){
 
-        return View::make('referral.create_referral');
+        return View::make('backend.referral.create_referral');
     }
 
     public function myReferrals(){
@@ -17,7 +17,7 @@ class ReferralController extends BaseController {
                 ->where('ur.referral_id','=',Auth::user()->id)
                 ->select(['u.id as user_id','u.email','u.name','u.avatar','ur.created_at as referred_on','u.created_at as registered_on'])->get();
 
-        return View::make('referral.my_referrals',$this->data);
+        return View::make('backend.referral.my_referrals',$this->data);
     }
 
     public function pendingReferrals(){
@@ -26,7 +26,7 @@ class ReferralController extends BaseController {
             ->where('referral_id','=',Auth::user()->id)
             ->get();
 
-        return View::make('referral.pending_referrals',$this->data);
+        return View::make('backend.referral.pending_referrals',$this->data);
     }
 
     public function postNewReferrals(){

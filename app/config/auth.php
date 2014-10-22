@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'model' => 'Cashout\Models\User',
+	'model' => 'KodeInfo\UserManagement\Models\Users',
 
 	/*
 	|--------------------------------------------------------------------------

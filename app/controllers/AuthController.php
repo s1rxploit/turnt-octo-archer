@@ -14,7 +14,7 @@ class AuthController extends BaseController
     }
 
     public function getChangePassword(){
-        return View::make('change_password');
+        return View::make('backend.change_password');
     }
 
     public function postChangePassword(){
@@ -44,7 +44,7 @@ class AuthController extends BaseController
 
     public function getRegister()
     {
-        return View::make('register');
+        return View::make('backend.register');
     }
 
     public function postRegister()
@@ -82,7 +82,7 @@ class AuthController extends BaseController
 
     public function getForgotPassword()
     {
-        return View::make("forgot_password");
+        return View::make("backend.forgot_password");
     }
 
     public function postForgotPassword()
@@ -128,7 +128,7 @@ class AuthController extends BaseController
 
             if($reset_requested_on->addDay()>$present_day){
                 //Show new password view
-                return View::make('reset_password',['email'=>$email,'code'=>$code]);
+                return View::make('backend.reset_password',['email'=>$email,'code'=>$code]);
             }else{
                 Session::flash("error_msg","Password change token expired . Please reset your password");
                 return Redirect::to('/forgot-password');
@@ -175,7 +175,7 @@ class AuthController extends BaseController
 
         }
 
-        return View::make('login');
+        return View::make('backend.login');
     }
 
     public function logout()

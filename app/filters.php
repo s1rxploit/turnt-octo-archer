@@ -5,9 +5,7 @@ Route::filter('customer_auth', function()
     //Someone is loggedin maybe admin / customer
     if(Auth::check()){
 
-        $userManager = new KodeInfo\UserManagement\UserManagement(Auth::user()->id);
-
-        if(!$userManager->user->isCustomer()&&!$userManager->user->isAdmin()){
+        if(!Auth::user()->isCustomer()&&!Auth::user()->isAdmin()){
             return Redirect::to('/');
         }
 
@@ -21,10 +19,9 @@ Route::filter('admin_auth', function()
     //Someone is loggedin maybe admin / customer
     if(Auth::check()){
 
-        $userManager = new KodeInfo\UserManagement\UserManagement(Auth::user()->id);
-
-        if(!$userManager->user->isAdmin()){
-            return Redirect::to('/');
+        if(!Auth::user()->isAdmin()){
+            Session::flash('error_msg','Access denied . Contact Admin to Escalate your rights');
+            return Redirect::to('/dashboard');
         }
 
     }else{

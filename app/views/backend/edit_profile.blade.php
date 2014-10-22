@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('backend.layouts.master')
 
 @section('content')
 <!-- Page header -->
@@ -8,7 +8,7 @@
 	</div>
 </div>
 
-@include('layouts.notify')
+@include('backend.layouts.notify')
 
 {{Form::open(['url'=>'/profile/edit','method'=>'post','files'=>true,'class'=>'form-horizontal form-bordered','role'=>'form'])}}
 

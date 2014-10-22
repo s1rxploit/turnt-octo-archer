@@ -81,6 +81,20 @@
 				</ul>
 			</li>
 
+            @if(Auth::check()&&Auth::user()->isAdmin())
+				<li>
+                        				<a class="expand"><span>News</span> <i class="icon-coin"></i></a>
+                        				<ul>
+                        					<li>
+                        						<a href="/admin/news/all">All News</a>
+                        					</li>
+<li>
+                        						<a href="/admin/news/add">Add News</a>
+                        					</li>
+                        				</ul>
+                        			</li>
+            @endif
+
 			<li>
             				<a class="expand"><span>Cash Generation</span> <i class="icon-coin"></i></a>
             				<ul>

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('backend.layouts.master')
 
 @section('styles')
 <style type="text/css">
@@ -34,7 +34,7 @@
 	</div>
 </div>
 
-@include('layouts.notify')
+@include('backend.layouts.notify')
 
 <div class="panel panel-default">
 	<div class="panel-heading">

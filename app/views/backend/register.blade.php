@@ -54,18 +54,22 @@
 
 <div class="login-wrapper">
 
-    @include('layouts.notify')
+    @include('backend.layouts.notify')
 
-  <form action="/login" method="POST" role="form">
-    <div class="popup-header"><a href="#" class="pull-left"><i class="icon-user-plus"></i></a><span class="text-semibold">Customer Login</span>
+  <form action="/register" method="POST" role="form">
+    <div class="popup-header"><a href="#" class="pull-left"><i class="icon-user-plus"></i></a><span class="text-semibold">Register</span>
       <div class="btn-group pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs"></i></a>
         <ul class="dropdown-menu icons-right dropdown-menu-right">
-          <li><a href="/forgot-password"><i class="icon-info"></i> Forgot password?</a></li>
-          <li><a href="/register"><i class="icon-user4"></i> New User </a></li>
+          <li><a href="/forgot-password"><i class="icon-info"></i> Forgot Password </a></li>
+          <li><a href="/login"><i class="icon-user4"></i> Already registered ? Sign in </a></li>
         </ul>
       </div>
     </div>
     <div class="well">
+    <div class="form-group has-feedback">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Name">
+            <i class="icon-user4 form-control-feedback"></i></div>
       <div class="form-group has-feedback">
         <label>Email</label>
         <input type="text" class="form-control" name="email" placeholder="Email">
@@ -74,16 +78,28 @@
         <label>Password</label>
         <input type="password" class="form-control" name="password" placeholder="Password">
         <i class="icon-lock form-control-feedback"></i></div>
+        <div class="form-group has-feedback">
+                <label>Confirm Password</label>
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Password">
+                <i class="icon-lock form-control-feedback"></i></div>
+
+       <div class="row form-actions">
+              <div class="col-xs-12">
+                <div class="checkbox checkbox-success">
+                  <label>
+                    <input type="checkbox" name="terms_conditions" value="1" class="styled">
+                    I accept the Terms of Service and Privacy Policy </label>
+                </div>
+              </div>
+
+            </div>
+
       <div class="row form-actions">
         <div class="col-xs-6">
-          <div class="checkbox checkbox-success">
-            <label>
-              <input type="checkbox" name="remember_me" class="styled">
-              Remember me</label>
-          </div>
+
         </div>
         <div class="col-xs-6">
-          <button type="submit" class="btn btn-warning pull-right"><i class="icon-menu2"></i> Sign in</button>
+          <button type="submit" class="btn btn-warning pull-right"><i class="icon-menu2"></i> Register</button>
         </div>
       </div>
 
@@ -96,7 +112,7 @@
 
       <div class="row form-actions">
               <div class="col-xs-12">
-                <a href="/facebook" type="submit" class="btn btn-info btn-block pull-right"><i class="icon-facebook"></i> Login with Facebook</a>
+                <a href="/facebook" type="submit" class="btn btn-info btn-block pull-right"><i class="icon-facebook"></i> Register with Facebook</a>
               </div>
 
             </div>
@@ -105,9 +121,7 @@
 </div>
 <!-- /login wrapper -->
 <!-- Footer -->
-<div class="footer clearfix">
-  <div class="pull-left">&copy; 2014. Cashout </div>
-</div>
+
 <!-- /footer -->
 </body>
 </html>
