@@ -103,7 +103,7 @@
                                     						<a href="/admin/users/all">All Users</a>
                                     					</li>
             <li>
-                                    						<a href="/admin/users/add_admin">Add Admin</a>
+                                    						<a href="/admin/users/add_account">Create New Account</a>
                                     					</li>
                                     				</ul>
                                     			</li>

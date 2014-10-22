@@ -4,7 +4,7 @@
 <!-- Page header -->
 <div class="page-header">
 	<div class="page-title">
-		<h3>Create New Admin </h3>
+		<h3>Create New Account </h3>
 	</div>
 </div>
 
@@ -18,19 +18,19 @@
 			<a href="/dashboard">Home</a>
 		</li>
 		<li class="active">
-			Create New Admin
+			Create New Account
 		</li>
 	</ul>
 </div>
 <!-- /breadcrumbs line -->
 
-{{Form::open(['url'=>'/admin/users/add_admin','method'=>'post','files'=>true,'class'=>'form-horizontal form-bordered','role'=>'form'])}}
+{{Form::open(['url'=>'/admin/users/add_account','method'=>'post','files'=>true,'class'=>'form-horizontal form-bordered','role'=>'form'])}}
 
 <!-- Button trigger modal -->
 
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h6 class="panel-title"><i class="icon-user-plus2"></i> Create New Admin</h6>
+		<h6 class="panel-title"><i class="icon-user-plus2"></i> Create New Account</h6>
 		<div class="table-controls pull-right">
 			<input type="submit" value="Save" class="btn btn-info">
 		</div>
@@ -70,6 +70,16 @@
 				<input name="avatar" type="file" class="form-control">
 			</div>
 		</div>
+
+		 <div class="form-group">
+                                			<label class="col-sm-2 control-label">Account Type</label>
+                                			<div class="col-sm-10">
+                                                 <select class="form-control input-lg" name="group">
+                                                    <option {{Input::old('group')=="admin"?"selected":""}} value="admin">Admin Account</option>
+                                                    <option {{Input::old('group')=="customer"?"selected":""}} value="customer">User Account</option>
+                                                 </select>
+                                            </div>
+                                		</div>
 
         <div class="form-group">
                 			<label class="col-sm-2 control-label">Activate</label>

@@ -48,14 +48,14 @@ Route::group(['before' => 'admin_auth','prefix'=>'admin'], function () {
     Route::get('users/all', 'AdminUsersController@allUsers');
     Route::get('users/view/{user_id}', 'AdminUsersController@viewUserProfile');
     Route::get('users/delete/{user_id}', 'AdminUsersController@deleteUsers');
-    Route::get('users/add_admin', 'AdminUsersController@createAdmin');
+    Route::get('users/add_account', 'AdminUsersController@createAccount');
     Route::get('users/ban/{user_id}', 'AdminController@banUser');
     Route::get('users/un-ban/{user_id}', 'AdminController@unBanUser');
     Route::get('users/un-suspend/{user_id}', 'AdminController@unSuspendUser');
     Route::get('users/suspend/{user_id}/{hrs}', 'AdminController@suspendUser');
 
     Route::group(['filter' => 'csrf'], function () {
-        Route::post('users/add_admin', 'AdminUsersController@storeAdmin');
+        Route::post('users/add_account', 'AdminUsersController@storeAccount');
         Route::post('users/update/{user_id}', 'AdminUsersController@updateUser');
         Route::post('news/add', 'AdminNewsController@storeNews');
         Route::post('news/update/{news_id}', 'AdminNewsController@postNewsUpdate');

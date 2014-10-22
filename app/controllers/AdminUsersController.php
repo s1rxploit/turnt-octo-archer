@@ -6,9 +6,9 @@ use \Cashout\Models\News;
 class AdminUsersController extends BaseController
 {
 
-    public function createAdmin()
+    public function createAccount()
     {
-        return View::make('backend.users.create_admin');
+        return View::make('backend.users.create_account');
     }
 
     public function viewUserProfile($user_id)
@@ -72,13 +72,13 @@ class AdminUsersController extends BaseController
         return View::make('backend.users.all_users', $this->data);
     }
 
-    public function storeAdmin()
+    public function storeAccount()
     {
 
         $userManager = new \KodeInfo\UserManagement\UserManagement();
 
         try {
-            $user = $userManager->createUser(Input::all(), 'admin', true);
+            $user = $userManager->createUser(Input::all(),Input::get('group','admin'), true);
 
             if(Input::hasFile('avatar')){
                 $user->avatar = \Cashout\Helpers\Utils::imageUpload(Input::file('avatar'), 'profile');
