@@ -1,4 +1,4 @@
-@extends('customer.layouts.master')
+@extends('layouts.master')
 
 @section('content')
 <!-- Page header -->
@@ -8,14 +8,14 @@
 	</div>
 </div>
 
-@include('customer.layouts.notify')
+@include('layouts.notify')
 
 <!-- /page header -->
 <!-- Breadcrumbs line -->
 <div class="breadcrumb-line">
 	<ul class="breadcrumb">
 		<li>
-			<a href="/customer">Home</a>
+			<a href="/dashboard">Home</a>
 		</li>
 		<li class="active">
 			Pending Referrals
@@ -28,8 +28,8 @@
 	<div class="panel-heading">
 		<h6 class="panel-title"><i class="icon-user4"></i> Pending Referrals</h6>
 		<div class="table-controls pull-right">
-			<a href="/customer/referral/new" class="btn btn-default btn-icon btn-xs tip" title="" data-original-title="Add Referral"><i class="icon-plus"></i></a>
-			<a href="/customer/referral/my_referrals" class="btn btn-default btn-icon btn-xs tip" title="" data-original-title="My Referrals"><i class="icon-cogs"></i></a>
+			<a href="/referral/new" class="btn btn-default btn-icon btn-xs tip" title="" data-original-title="Add Referral"><i class="icon-plus"></i></a>
+			<a href="/referral/my_referrals" class="btn btn-default btn-icon btn-xs tip" title="" data-original-title="My Referrals"><i class="icon-cogs"></i></a>
 		</div>
 	</div>
 	<div class="datatable">

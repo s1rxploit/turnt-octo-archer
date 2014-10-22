@@ -1,4 +1,4 @@
-@extends('customer.layouts.master')
+@extends('layouts.master')
 
 @section('content')
 <!-- Page header -->
@@ -8,9 +8,9 @@
 	</div>
 </div>
 
-@include('customer.layouts.notify')
+@include('layouts.notify')
 
-{{Form::open(['url'=>'/customer/profile/change_password','method'=>'post','class'=>'form-horizontal form-bordered','role'=>'form'])}}
+{{Form::open(['url'=>'/profile/change_password','method'=>'post','class'=>'form-horizontal form-bordered','role'=>'form'])}}
 
 <!-- Button trigger modal -->
 

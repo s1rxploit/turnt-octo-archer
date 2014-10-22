@@ -69,8 +69,8 @@
 	</head>
 	<body class="sidebar-wide">
 
-		@include('customer.layouts.header');
-		@include('customer.layouts.sidebar');
+		@include('layouts.header');
+		@include('layouts.sidebar');
 
 		<!-- Page container -->
 		<div class="page-container">
@@ -81,7 +81,7 @@
 				@yield('content')
 
 				<!-- Footer -->
-				@include('customer.layouts.footer')
+				@include('layouts.footer')
 				<!-- /footer -->
 
 			</div>

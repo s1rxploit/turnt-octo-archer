@@ -1,4 +1,4 @@
-@extends('customer.layouts.master')
+@extends('layouts.master')
 
 @section('content')
 <!-- Page header -->
@@ -8,9 +8,9 @@
 	</div>
 </div>
 
-@include('customer.layouts.notify')
+@include('layouts.notify')
 
-{{Form::open(['url'=>'/customer/profile/edit','method'=>'post','files'=>true,'class'=>'form-horizontal form-bordered','role'=>'form'])}}
+{{Form::open(['url'=>'/profile/edit','method'=>'post','files'=>true,'class'=>'form-horizontal form-bordered','role'=>'form'])}}
 
 <!-- Button trigger modal -->
 
@@ -40,14 +40,6 @@
 			</div>
 		</div>
 
-<!--
-		<div class="form-group">
-			<label class="col-sm-2 control-label">Username</label>
-			<div class="col-sm-10">
-				<input name="username" type="text" class="form-control" value="{{Input::old('username',$profile->username)}}">
-			</div>
-		</div>
--->
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Name</label>
 			<div class="col-sm-10">

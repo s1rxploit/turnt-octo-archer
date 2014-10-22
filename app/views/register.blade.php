@@ -54,40 +54,74 @@
 
 <div class="login-wrapper">
 
-    @include('customer.layouts.notify')
+    @include('layouts.notify')
 
-  <form action="/customer/reset/change-password" method="POST" role="form">
-
+  <form action="/register" method="POST" role="form">
+    <div class="popup-header"><a href="#" class="pull-left"><i class="icon-user-plus"></i></a><span class="text-semibold">Register</span>
+      <div class="btn-group pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs"></i></a>
+        <ul class="dropdown-menu icons-right dropdown-menu-right">
+          <li><a href="/forgot-password"><i class="icon-info"></i> Forgot Password </a></li>
+          <li><a href="/login"><i class="icon-user4"></i> Already registered ? Sign in </a></li>
+        </ul>
+      </div>
+    </div>
     <div class="well">
+    <div class="form-group has-feedback">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Name">
+            <i class="icon-user4 form-control-feedback"></i></div>
       <div class="form-group has-feedback">
-        <label>Enter New Password</label>
-        <input type="hidden" name="email" value="{{$email}}"/>
-        <input type="hidden" name="code" value="{{$code}}"/>
-        <input type="password" class="form-control" name="password" >
+        <label>Email</label>
+        <input type="text" class="form-control" name="email" placeholder="Email">
+        <i class="icon-users form-control-feedback"></i></div>
+      <div class="form-group has-feedback">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Password">
         <i class="icon-lock form-control-feedback"></i></div>
-
-         <div class="form-group has-feedback">
-                <label>Confirm New Password</label>
-                <input type="password" class="form-control" name="password_confirmation" >
+        <div class="form-group has-feedback">
+                <label>Confirm Password</label>
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Password">
                 <i class="icon-lock form-control-feedback"></i></div>
 
+       <div class="row form-actions">
+              <div class="col-xs-12">
+                <div class="checkbox checkbox-success">
+                  <label>
+                    <input type="checkbox" name="terms_conditions" value="1" class="styled">
+                    I accept the Terms of Service and Privacy Policy </label>
+                </div>
+              </div>
+
+            </div>
+
       <div class="row form-actions">
-        <div class="col-xs-4">
+        <div class="col-xs-6">
 
         </div>
-        <div class="col-xs-8">
-          <button type="submit" class="btn btn-warning pull-right"><i class="icon-menu2"></i> Change Password</button>
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-warning pull-right"><i class="icon-menu2"></i> Register</button>
         </div>
       </div>
 
+      <div class="row form-actions">
+                    <div class="col-xs-12">
+                      <a href="/forgot-password"> Forgot Password ?</a>
+                    </div>
+
+                  </div>
+
+      <div class="row form-actions">
+              <div class="col-xs-12">
+                <a href="/facebook" type="submit" class="btn btn-info btn-block pull-right"><i class="icon-facebook"></i> Register with Facebook</a>
+              </div>
+
+            </div>
     </div>
   </form>
 </div>
 <!-- /login wrapper -->
 <!-- Footer -->
-<div class="footer clearfix">
-  <div class="pull-left">&copy; 2014. Cashout </div>
-</div>
+
 <!-- /footer -->
 </body>
 </html>

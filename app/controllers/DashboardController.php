@@ -3,7 +3,7 @@
 use \Cashout\Models\Notifications;
 use \Cashout\Models\News;
 
-class CustomerController extends BaseController {
+class DashboardController extends BaseController {
 
     public function index()
     {
@@ -12,11 +12,11 @@ class CustomerController extends BaseController {
         $this->data['archived_notifications'] = Notifications::getArchivedNotifications();
         $this->data['news'] = News::orderBy('created_at','DESC')->get();
 
-        return View::make('customer.index', $this->data);
+        return View::make('index', $this->data);
     }
 
     public function startEarnings(){
-        return View::make('customer.start_earnings');
+        return View::make('start_earnings');
     }
 
     public function showCGS(){
@@ -25,7 +25,7 @@ class CustomerController extends BaseController {
 
         $response = $cgs->getCGS(Auth::user()->id);
 
-        return View::make('customer.referral_tree',['tree'=>$response['cgs_string']]);
+        return View::make('referral_tree',['tree'=>$response['cgs_string']]);
 
     }
 
@@ -34,7 +34,7 @@ class CustomerController extends BaseController {
 
         $this->data['profile'] = Auth::user();
 
-        return View::make('customer.edit_profile', $this->data);
+        return View::make('edit_profile', $this->data);
     }
 
     public function updateProfile()

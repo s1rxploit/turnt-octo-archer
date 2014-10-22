@@ -14,25 +14,25 @@
 
 	<ul class="nav navbar-nav navbar-right collapse" id="navbar-icons">
 		<li class="dropdown">
-			<a href="/customer/referral/my_referrals" ><i class="icon-users"></i> My Referrals</a>
+			<a href="/referral/my_referrals" ><i class="icon-users"></i> My Referrals</a>
 		</li>
 		<li class="dropdown">
-			<a href="/customer/referral/new"><i class="icon-user4"></i> New Referral</a>
+			<a href="/referral/new"><i class="icon-user4"></i> New Referral</a>
 		</li>
 		<li class="dropdown">
-			<a href="/customer/funds/withdraw"><i class="icon-coin"></i> Withdraw Funds</a>
+			<a href="/funds/withdraw"><i class="icon-coin"></i> Withdraw Funds</a>
 		</li>
 		<li class="user dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown"><img src="{{Auth::user()->avatar}}" alt=""><span>{{Auth::user()->name}}</span><i class="caret"></i></a>
 			<ul class="dropdown-menu dropdown-menu-right icons-right">
 				<li>
-					<a href="/customer/profile/edit"><i class="icon-user"></i> Profile</a>
+					<a href="/profile/edit"><i class="icon-user"></i> Profile</a>
 				</li>
 				<li>
-					<a href="/customer/profile/change_password"><i class="icon-lock"></i> Change Password</a>
+					<a href="/profile/change_password"><i class="icon-lock"></i> Change Password</a>
 				</li>
 				<li>
-					<a href="/customer/logout"><i class="icon-exit"></i> Logout</a>
+					<a href="/logout"><i class="icon-exit"></i> Logout</a>
 				</li>
 			</ul>
 		</li>

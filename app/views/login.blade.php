@@ -54,32 +54,52 @@
 
 <div class="login-wrapper">
 
-    @include('customer.layouts.notify')
+    @include('layouts.notify')
 
-  <form action="/customer/forgot-password" method="POST" role="form">
-    <div class="popup-header"><a href="#" class="pull-left"><i class="icon-user-plus"></i></a><span class="text-semibold">Forgot Password</span>
+  <form action="/login" method="POST" role="form">
+    <div class="popup-header"><a href="#" class="pull-left"><i class="icon-user-plus"></i></a><span class="text-semibold">Customer Login</span>
       <div class="btn-group pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs"></i></a>
         <ul class="dropdown-menu icons-right dropdown-menu-right">
-          <li><a href="/customer/login"><i class="icon-user4"></i> Sign In</a></li>
-          <li><a href="/customer/register"><i class="icon-users"></i> New User </a></li>
+          <li><a href="/forgot-password"><i class="icon-info"></i> Forgot password?</a></li>
+          <li><a href="/register"><i class="icon-user4"></i> New User </a></li>
         </ul>
       </div>
     </div>
     <div class="well">
       <div class="form-group has-feedback">
-        <label>Enter Email</label>
+        <label>Email</label>
         <input type="text" class="form-control" name="email" placeholder="Email">
         <i class="icon-users form-control-feedback"></i></div>
-
+      <div class="form-group has-feedback">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Password">
+        <i class="icon-lock form-control-feedback"></i></div>
       <div class="row form-actions">
-        <div class="col-xs-4">
-
+        <div class="col-xs-6">
+          <div class="checkbox checkbox-success">
+            <label>
+              <input type="checkbox" name="remember_me" class="styled">
+              Remember me</label>
+          </div>
         </div>
-        <div class="col-xs-8">
-          <button type="submit" class="btn btn-warning pull-right"><i class="icon-menu2"></i> Reset Password</button>
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-warning pull-right"><i class="icon-menu2"></i> Sign in</button>
         </div>
       </div>
 
+      <div class="row form-actions">
+                    <div class="col-xs-12">
+                      <a href="/forgot-password"> Forgot Password ?</a>
+                    </div>
+
+                  </div>
+
+      <div class="row form-actions">
+              <div class="col-xs-12">
+                <a href="/facebook" type="submit" class="btn btn-info btn-block pull-right"><i class="icon-facebook"></i> Login with Facebook</a>
+              </div>
+
+            </div>
     </div>
   </form>
 </div>

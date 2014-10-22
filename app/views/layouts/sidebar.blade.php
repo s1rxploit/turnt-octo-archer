@@ -13,7 +13,7 @@
 				<div class="thumbnail">
 					<div class="thumb"><img alt="" src="{{Auth::user()->avatar}}">
 						<div class="thumb-options">
-							<span><a href="/customer/profile/edit" class="btn btn-icon btn-success"><i class="icon-pencil"></i></a></span>
+							<span><a href="/profile/edit" class="btn btn-icon btn-success"><i class="icon-pencil"></i></a></span>
 						</div>
 					</div>
 					<div class="caption text-center">
@@ -35,21 +35,21 @@
 		<ul class="navigation">
 
 		    <li>
-        		<a class="btn btn-block btn-success" href="/customer/earnings"> <i class="icon-cash"></i> <span>Start Earnings </span> </a>
+        		<a class="btn btn-block btn-success" href="/earnings"> <i class="icon-cash"></i> <span>Start Earnings </span> </a>
         	</li>
 
 			<li {{!isset(Request::segments()[0])?"class='active'":""}}>
-				<a href="/customer"> <i class="icon-screen2"></i> <span>Dashboard </span> </a>
+				<a href="/dashboard"> <i class="icon-screen2"></i> <span>Dashboard </span> </a>
 			</li>
 
 			<li>
 				<a href="" class="expand"><span>Profile</span> <i class="icon-user4"></i></a>
 				<ul>
 					<li>
-						<a href="/customer/profile/edit">Edit Profile</a>
+						<a href="/profile/edit">Edit Profile</a>
 					</li>
 					<li>
-						<a href="/customer/profile/change_password">Change Password</a>
+						<a href="/profile/change_password">Change Password</a>
 					</li>
 				</ul>
 			</li>
@@ -70,13 +70,13 @@
 				<a class="expand"><span>Referrals</span> <i class="icon-users"></i></a>
 				<ul>
 					<li>
-						<a href="/customer/referral/my_referrals">My Referrals</a>
+						<a href="/referral/my_referrals">My Referrals</a>
 					</li>
 					<li>
-						<a href="/customer/referral/pending">Pending Referrals</a>
+						<a href="/referral/pending">Pending Referrals</a>
 					</li>
 					<li>
-						<a href="/customer/referral/new">Add New Referral</a>
+						<a href="/referral/new">Add New Referral</a>
 					</li>
 				</ul>
 			</li>
@@ -85,7 +85,7 @@
             				<a class="expand"><span>Cash Generation</span> <i class="icon-coin"></i></a>
             				<ul>
             					<li>
-            						<a href="/customer/cgs">CGS Tree</a>
+            						<a href="/cgs">CGS Tree</a>
             					</li>
 
             				</ul>

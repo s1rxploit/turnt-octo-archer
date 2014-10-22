@@ -1,4 +1,4 @@
-@extends('customer.layouts.master')
+@extends('layouts.master')
 
 @section('styles')
 <style type="text/css">
@@ -34,7 +34,7 @@
 	</div>
 </div>
 
-@include('customer.layouts.notify')
+@include('layouts.notify')
 
 <div class="panel panel-default">
 	<div class="panel-heading">

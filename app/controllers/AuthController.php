@@ -3,7 +3,7 @@
 use KodeInfo\UserManagement\UserManagement;
 use Cashout\Helpers\Utils;
 
-class CustomerAuthController extends BaseController
+class AuthController extends BaseController
 {
 
     public $userManager;
@@ -14,7 +14,7 @@ class CustomerAuthController extends BaseController
     }
 
     public function getChangePassword(){
-        return View::make('customer.change_password');
+        return View::make('change_password');
     }
 
     public function postChangePassword(){
@@ -44,7 +44,7 @@ class CustomerAuthController extends BaseController
 
     public function getRegister()
     {
-        return View::make('customer.register');
+        return View::make('register');
     }
 
     public function postRegister()
@@ -82,7 +82,7 @@ class CustomerAuthController extends BaseController
 
     public function getForgotPassword()
     {
-        return View::make("customer.forgot_password");
+        return View::make("forgot_password");
     }
 
     public function postForgotPassword()
@@ -103,7 +103,7 @@ class CustomerAuthController extends BaseController
             //TODO Create email template and sent
 
             Session::flash('success_msg','Please click on the link we sent to your email to reset password');
-            return Redirect::to('/customer/forgot-password');
+            return Redirect::to('/forgot-password');
         }
 
     }
@@ -112,7 +112,7 @@ class CustomerAuthController extends BaseController
 
         if(strlen($email)<=0 || strlen($code)<=0){
             Session::flash("error_msg","Invalid Request . Please reset your password");
-            return Redirect::to('/customer/forgot-password');
+            return Redirect::to('/forgot-password');
         }
 
         //Check code and email
@@ -120,7 +120,7 @@ class CustomerAuthController extends BaseController
 
         if(sizeof($user)<=0){
             Session::flash("error_msg","Invalid Request . Please reset your password");
-            return Redirect::to('/customer/forgot-password');
+            return Redirect::to('/forgot-password');
         }else{
             //check for 24 hrs for token
             $reset_requested_on = \Carbon\Carbon::createFromFormat('Y-m-d G:i:s',$user->reset_requested_on);
@@ -128,10 +128,10 @@ class CustomerAuthController extends BaseController
 
             if($reset_requested_on->addDay()>$present_day){
                 //Show new password view
-                return View::make('customer.reset_password',['email'=>$email,'code'=>$code]);
+                return View::make('reset_password',['email'=>$email,'code'=>$code]);
             }else{
                 Session::flash("error_msg","Password change token expired . Please reset your password");
-                return Redirect::to('/customer/forgot-password');
+                return Redirect::to('/forgot-password');
             }
         }
     }
@@ -151,7 +151,7 @@ class CustomerAuthController extends BaseController
                 $user->save();
 
                 Session::flash('success_msg', 'Password changed successfully');
-                return Redirect::to('/customer/login');
+                return Redirect::to('/login');
             }else{
                 Session::flash('error_msg', 'Invalid password entered');
                 return Redirect::back();
@@ -169,19 +169,19 @@ class CustomerAuthController extends BaseController
 
             $userManager = new KodeInfo\UserManagement\UserManagement(Auth::user()->id);
 
-            if ($userManager->user->isCustomer()) {
-                return Redirect::to('/customer');
+            if ($userManager->user->isCustomer()||$userManager->user->isAdmin()) {
+                return Redirect::to('/dashboard');
             }
 
         }
 
-        return View::make('customer.login');
+        return View::make('login');
     }
 
     public function logout()
     {
         $this->userManager->logout();
-        return Redirect::to('/customer/login');
+        return Redirect::to('/login');
     }
 
     public function signInWithFacebook()
@@ -205,7 +205,7 @@ class CustomerAuthController extends BaseController
 
                         $this->userManager->loginWithID($result['email'], true);
 
-                        return Redirect::to('/customer');
+                        return Redirect::to('/dashboard');
 
                     } catch (\KodeInfo\UserManagement\Exceptions\LoginFieldsMissingException $e) {
                         Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
@@ -242,7 +242,7 @@ class CustomerAuthController extends BaseController
                         $this->userManager->login(["email" => $result['email'],
                             "password" => $password], true, true);
 
-                        return Redirect::to('/customer');
+                        return Redirect::to('/dashboard');
 
                     } catch (\KodeInfo\UserManagement\Exceptions\LoginFieldsMissingException $e) {
                         Session::flash('error_msg', Utils::buildMessages($e->getErrors()));
@@ -261,7 +261,7 @@ class CustomerAuthController extends BaseController
             }
 
             Session::flash('error_msg', 'User not found . Please register to continue');
-            return Redirect::to('/customer/register');
+            return Redirect::to('/register');
 
         } else {
             $url = $fb->getAuthorizationUri();
@@ -275,7 +275,7 @@ class CustomerAuthController extends BaseController
             $this->userManager->login(["email" => Input::get('email'),
                 "password" => Input::get('password')], Input::has('remember_me'), true);
 
-            return Redirect::to('/customer');
+            return Redirect::to('/dashboard');
 
         } catch (\KodeInfo\UserManagement\Exceptions\AuthException $e) {
             Session::flash('error_msg', Utils::buildMessages($e->getErrors()));

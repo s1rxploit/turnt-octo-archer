@@ -1,4 +1,4 @@
-@extends('customer.layouts.master')
+@extends('layouts.master')
 
 @section('content')
 <!-- Page header -->
@@ -8,14 +8,14 @@
 	</div>
 </div>
 
-@include('customer.layouts.notify')
+@include('layouts.notify')
 
 <!-- /page header -->
 <!-- Breadcrumbs line -->
 <div class="breadcrumb-line">
 	<ul class="breadcrumb">
 		<li>
-			<a href="/customer">Home</a>
+			<a href="/dashboard">Home</a>
 		</li>
 		<li class="active">
 			Dashboard

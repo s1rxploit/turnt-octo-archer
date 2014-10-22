@@ -7,7 +7,7 @@ Route::filter('customer_auth', function()
 
         $userManager = new KodeInfo\UserManagement\UserManagement(Auth::user()->id);
 
-        if(!$userManager->user->isCustomer()){
+        if(!$userManager->user->isCustomer()&&!$userManager->user->isAdmin()){
             return Redirect::to('/');
         }
 

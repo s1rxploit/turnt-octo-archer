@@ -1,61 +1,59 @@
 <?php
 
-Route::get('/','CustomerAuthController@getLogin');
+Route::get('/', 'AuthController@getLogin');
 
-Route::group(['prefix'=>'customer'],function() {
+//Auth - Login , Register , Forgotpassword , Change password , Login with FB
+Route::get('/login', 'AuthController@getLogin');
+Route::get('/register', 'AuthController@getRegister');
+Route::get('/forgot-password', 'AuthController@getForgotPassword');
+Route::get('/reset/{email}/{code}', 'AuthController@getReset');
+Route::get('/facebook', 'AuthController@signInWithFacebook');
+Route::post('/trial_pay/process', 'ReferralController@trialPayResponse');
+Route::get('/logout', 'AuthController@logout');
 
-    //Auth - Login , Register , Forgotpassword , Change password , Login with FB
-    Route::get('/login','CustomerAuthController@getLogin');
-    Route::get('/register','CustomerAuthController@getRegister');
-    Route::get('/forgot-password','CustomerAuthController@getForgotPassword');
-    Route::get('/reset/{email}/{code}','CustomerAuthController@getReset');
-    Route::get('/facebook', 'CustomerAuthController@signInWithFacebook');
-    Route::get('/logout','CustomerAuthController@logout');
+Route::group(['filter' => 'csrf'], function () {
+    Route::post('/login', 'AuthController@postLogin');
+    Route::post('/register', 'AuthController@postRegister');
+    Route::post('/forgot-password', 'AuthController@postForgotPassword');
+    Route::post('/reset/change-password', 'AuthController@postReset');
+});
 
-    Route::get('/earnings', 'CustomerController@startEarnings');
-    Route::get('/cgs', 'CustomerController@showCGS');
+Route::group(['before' => 'customer_auth'], function () {
 
-    Route::group(['filter'=>'csrf'],function() {
-        Route::post('/login', 'CustomerAuthController@postLogin');
-        Route::post('/register','CustomerAuthController@postRegister');
-        Route::post('/forgot-password','CustomerAuthController@postForgotPassword');
-        Route::post('/reset/change-password','CustomerAuthController@postReset');
-    });
+    Route::get('/dashboard', 'DashboardController@index');
+    Route::get('/earnings', 'DashboardController@startEarnings');
+    Route::get('/cgs', 'DashboardController@showCGS');
+    Route::get('notifications/archive/{notification_id}', 'DashboardController@archiveNotification');
+    Route::get('referral/new', 'ReferralController@getNewReferrals');
+    Route::get('referral/my_referrals', 'ReferralController@myReferrals');
+    Route::get('referral/pending', 'ReferralController@pendingReferrals');
+    Route::get('profile/edit', 'DashboardController@editProfile');
+    Route::get('profile/change_password', 'AuthController@getChangePassword');
 
-    Route::group(['before' => 'customer_auth'],function() {
-        Route::get('/','CustomerController@index');
-        Route::get('notifications/archive/{notification_id}', 'CustomerController@archiveNotification');
-        Route::get('referral/new', 'ReferralController@getNewReferrals');
-        Route::get('referral/my_referrals', 'ReferralController@myReferrals');
-        Route::get('referral/pending', 'ReferralController@pendingReferrals');
-        Route::get('profile/edit', 'CustomerController@editProfile');
-        Route::get('profile/change_password', 'CustomerAuthController@getChangePassword');
-
-        Route::group(['filter'=>'csrf'],function() {
-            Route::post('referral/new', 'ReferralController@postNewReferrals');
-            Route::post('profile/edit', 'CustomerController@updateProfile');
-            Route::post('profile/change_password', 'CustomerAuthController@postChangePassword');
-        });
-
+    Route::group(['filter' => 'csrf'], function () {
+        Route::post('referral/new', 'ReferralController@postNewReferrals');
+        Route::post('profile/edit', 'DashboardController@updateProfile');
+        Route::post('profile/change_password', 'AuthController@postChangePassword');
     });
 
 });
 
-Route::group(['prefix'=>'admin'],function() {
+
+Route::group(['prefix' => 'admin'], function () {
 
     //Auth - Login , Register , Forgotpassword , Change password , Login with FB
-    Route::get('/login','AdminAuthController@getLogin');
-    Route::get('/register','AdminAuthController@getRegister');
+    Route::get('/login', 'AdminAuthController@getLogin');
     Route::get('/facebook', 'AdminAuthController@signInWithFacebook');
-    Route::get('/logout','AdminAuthController@logout');
+    Route::get('/logout', 'AdminAuthController@logout');
 
-    Route::group(['filter'=>'csrf'],function() {
+    Route::group(['filter' => 'csrf'], function () {
         Route::post('/login', 'AdminAuthController@postLogin');
-        Route::post('/register','AdminAuthController@postRegister');
+        Route::post('/register', 'AdminAuthController@postRegister');
     });
 
-    Route::group(['before' => 'admin_auth'],function() {
-        Route::get('/','AdminController@index');
+    Route::group(['before' => 'admin_auth'], function () {
+        Route::get('/', 'AdminController@index');
+        Route::get('/register', 'AdminAuthController@getRegister');
         Route::get('profile/edit', 'AdminController@editProfile');
         Route::get('profile/change_password', 'AdminAuthController@getChangePassword');
         Route::get('news/add', 'AdminController@createNews');
@@ -66,7 +64,7 @@ Route::group(['prefix'=>'admin'],function() {
         Route::get('users/un-suspend/{user_id}', 'AdminController@unSuspendUser');
         Route::get('users/suspend/{user_id}/{hrs}', 'AdminController@suspendUser');
 
-        Route::group(['filter'=>'csrf'],function() {
+        Route::group(['filter' => 'csrf'], function () {
             Route::post('profile/edit', 'AdminController@updateProfile');
             Route::post('profile/change_password', 'AdminAuthController@postChangePassword');
             Route::post('news/add', 'AdminController@storeNews');
@@ -76,7 +74,6 @@ Route::group(['prefix'=>'admin'],function() {
 
 });
 
-Route::group(['prefix'=>'api'],function()
-{
-    Route::post('/trial_pay/process', 'TrialPayController@process');
+Route::group(['prefix' => 'api'], function () {
+
 });
