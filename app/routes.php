@@ -46,6 +46,7 @@ Route::group(['before' => 'admin_auth','prefix'=>'admin'], function () {
     Route::get('news/all', 'AdminNewsController@allNews');
 
     Route::get('users/all', 'AdminUsersController@allUsers');
+    Route::get('users/view/{user_id}', 'AdminUsersController@viewUserProfile');
     Route::get('users/delete/{user_id}', 'AdminUsersController@deleteUsers');
     Route::get('users/add_admin', 'AdminUsersController@createAdmin');
     Route::get('users/ban/{user_id}', 'AdminController@banUser');
@@ -55,6 +56,7 @@ Route::group(['before' => 'admin_auth','prefix'=>'admin'], function () {
 
     Route::group(['filter' => 'csrf'], function () {
         Route::post('users/add_admin', 'AdminUsersController@storeAdmin');
+        Route::post('users/update/{user_id}', 'AdminUsersController@updateUser');
         Route::post('news/add', 'AdminNewsController@storeNews');
         Route::post('news/update/{news_id}', 'AdminNewsController@postNewsUpdate');
     });

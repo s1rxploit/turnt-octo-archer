@@ -24,7 +24,7 @@
 </div>
 <!-- /breadcrumbs line -->
 
-{{Form::open(['url'=>'/admin/users/add_admin','method'=>'post','class'=>'form-horizontal form-bordered','role'=>'form'])}}
+{{Form::open(['url'=>'/admin/users/add_admin','method'=>'post','files'=>true,'class'=>'form-horizontal form-bordered','role'=>'form'])}}
 
 <!-- Button trigger modal -->
 
@@ -63,6 +63,13 @@
                                   <input name="password_confirmation" type="password" class="form-control" >
                              </div>
                  		</div>
+
+<div class="form-group">
+			<label class="col-sm-2 control-label">Avatar</label>
+			<div class="col-sm-10">
+				<input name="avatar" type="file" class="form-control">
+			</div>
+		</div>
 
         <div class="form-group">
                 			<label class="col-sm-2 control-label">Activate</label>

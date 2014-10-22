@@ -11,6 +11,59 @@ class AdminUsersController extends BaseController
         return View::make('backend.users.create_admin');
     }
 
+    public function viewUserProfile($user_id)
+    {
+
+        try {
+            $user = \Cashout\Models\User::findOrFail($user_id);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            Session::flash('error_msg', 'User not found');
+            return Redirect::back();
+        }
+
+        $this->data['profile'] = $user;
+        return View::make('backend.users.view_user',$this->data);
+    }
+
+    public function updateUser($user_id){
+
+        $name = Input::get('name');
+        $birthday = Input::get('birthday');
+        $bio = Input::get('bio', '');
+        $gender = Input::get('gender');
+        $mobile_no = Input::get('mobile_no');
+        $country = Input::get('country');
+        $old_avatar = Input::get('old_avatar');
+        $password = Input::get('password');
+        $password_confirmation = Input::get('password_confirmation');
+
+        try {
+
+            $profile = \Cashout\Models\User::findOrFail($user_id);
+
+            $profile->name = $name;
+            $profile->birthday = $birthday;
+            $profile->bio = $bio;
+            $profile->gender = $gender;
+            $profile->mobile_no = $mobile_no;
+            $profile->country = $country;
+            $profile->avatar = Input::hasFile('avatar') ? \Cashout\Helpers\Utils::imageUpload(Input::file('avatar'), 'profile') : $old_avatar;
+
+            if(strlen($password)>0&&strlen($password_confirmation)>0&&$password==$password_confirmation){
+                $profile->password = Hash::make($password);
+            }
+
+            $profile->save();
+
+            Session::flash('success_msg', 'Profile updated successfully');
+            return Redirect::back();
+
+        } catch (\Exception $e) {
+            Session::flash('error_msg', 'Unable to update profile');
+            return Redirect::back()->withInput(Input::all(Input::except(['_token','avatar'])));
+        }
+    }
+
     public function allUsers()
     {
 
@@ -25,7 +78,12 @@ class AdminUsersController extends BaseController
         $userManager = new \KodeInfo\UserManagement\UserManagement();
 
         try {
-            $userManager->createUser(Input::all(), 'admin', true);
+            $user = $userManager->createUser(Input::all(), 'admin', true);
+
+            if(Input::hasFile('avatar')){
+                $user->avatar = \Cashout\Helpers\Utils::imageUpload(Input::file('avatar'), 'profile');
+                $user->save();
+            }
 
             Session::flash('success_msg', 'Admin created successfully');
 
