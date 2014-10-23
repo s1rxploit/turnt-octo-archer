@@ -13,6 +13,15 @@ class AuthController extends BaseController
         $this->userManager = $userManager;
     }
 
+    public function getReferralRegister($referral_code){
+
+        if(sizeof(\Cashout\Models\User::where('referral_code',$referral_code)->get())>0){
+            Session::put('referral_code',$referral_code);
+        }
+
+        return Redirect::to('/register');
+    }
+
     public function getChangePassword(){
         return View::make('backend.change_password');
     }
@@ -63,13 +72,39 @@ class AuthController extends BaseController
 
         try {
 
-            $this->userManager->createUser(["name" => $name,
+            $user = $this->userManager->createUser(["name" => $name,
                     "email" => $email,
                     "password" => $password,
                     "password_confirmation" => $password_confirmation,
                     "referral_code" => Utils::generateReferralCode()],
                 'customer',
                 false);
+
+            if(Session::has('referral_code')){
+
+                $referral = \Cashout\Models\User::where('referral_code',Session::get('referral_code'))->get();
+
+                if(sizeof($referral)>0){
+                    $user_referral = new \Cashout\Models\UserReferral();
+                    $user_referral->referral_id = $referral->id;
+                    $user_referral->user_id = $user->id;
+                    $user_referral->email = '';
+                    $user_referral->save();
+                }
+            }else{
+
+                $referral = \Cashout\Models\User::get()->lists('id');
+
+                $random_referral = array_rand($referral);
+
+                if(sizeof($referral)>0){
+                    $user_referral = new \Cashout\Models\UserReferral();
+                    $user_referral->referral_id = $random_referral->id;
+                    $user_referral->user_id = $user->id;
+                    $user_referral->email = '';
+                    $user_referral->save();
+                }
+            }
 
             Session::flash('success_msg', "Registration Successful . Please activate your account by clicking activation link we sent to your email - " . $email);
             return Redirect::back();

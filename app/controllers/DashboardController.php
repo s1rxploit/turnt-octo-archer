@@ -12,6 +12,20 @@ class DashboardController extends BaseController {
         $this->data['archived_notifications'] = Notifications::getArchivedNotifications();
         $this->data['news'] = News::orderBy('created_at','DESC')->get();
 
+        if(Auth::user()->isAdmin()){
+
+            $past_hr = \Carbon\Carbon::now()->subHour();
+            $today = \Carbon\Carbon::now()->subDay();
+            $this_week = \Carbon\Carbon::now()->subWeek();
+            $this_month = \Carbon\Carbon::now()->subMonth();
+
+            $this->data['users_past_hr'] = DB::table('users')->where('created_at','>',$past_hr)->count();
+            $this->data['users_today'] = DB::table('users')->where('created_at','>',$today)->count();
+            $this->data['users_this_week'] = DB::table('users')->where('created_at','>',$this_week)->count();
+            $this->data['users_this_month'] = DB::table('users')->where('created_at','>',$this_month)->count();
+            $this->data['users_total'] = sizeof(DB::table('users')->get());
+        }
+
         return View::make('backend.index', $this->data);
     }
 

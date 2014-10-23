@@ -6,6 +6,7 @@ Route::get('/trial_pay/{user_id}/{reward_amt}', 'ReferralController@setRewards')
 //Auth - Login , Register , Forgotpassword , Change password , Login with FB
 Route::get('/login', 'AuthController@getLogin');
 Route::get('/register', 'AuthController@getRegister');
+Route::get('/register/referral/{referral_code}', 'AuthController@getReferralRegister');
 Route::get('/forgot-password', 'AuthController@getForgotPassword');
 Route::get('/reset/{email}/{code}', 'AuthController@getReset');
 Route::get('/facebook', 'AuthController@signInWithFacebook');

@@ -23,181 +23,53 @@ class DatabaseSeeder extends Seeder
 
     private function addUsers()
     {
-        DB::table('users')->insert([
-            'name' => 'Dave',
-            'username' => 'dave',
-            'email' => 'dave@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
 
-        $this->command->info('Dave ....');
+        $password = Hash::make('311311');
 
-        DB::table('users')->insert([
-            'name' => 'Bob',
-            'username' => 'bob',
-            'email' => 'bob@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
+        $user = new User();
+        $user->name = "Imran Iqbal";
+        $user->email = "shellprog@gmail.com";
+        $user->password = $password;
+        $user->referral_code = Utils::generateReferralCode();
+        $user->activated = 1;
+        $user->save();
 
-        $this->command->info('Bob ....');
+        $user_groups = new \Cashout\Models\UsersGroups();
+        $user_groups->group_id=2;
+        $user_groups->user_id=$user->id;
+        $user_groups->save();
 
-        DB::table('users')->insert([
-            'name' => 'Jim',
-            'username' => 'jim',
-            'email' => 'jim@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
+        $user = new User();
+        $user->name = "Imran Iqbal";
+        $user->email = "vjx242@gmail.com";
+        $user->password = $password;
+        $user->referral_code = Utils::generateReferralCode();
+        $user->activated = 1;
+        $user->save();
 
-        $this->command->info('Jim ....');
+        $user_groups = new \Cashout\Models\UsersGroups();
+        $user_groups->group_id=2;
+        $user_groups->user_id=$user->id;
+        $user_groups->save();
 
-        DB::table('users')->insert([
-            'name' => 'Joe',
-            'username' => 'joe',
-            'email' => 'joe@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
+        $this->command->info("Created Admins Vincent and Imran ....");
 
-        $this->command->info('Joe ....');
+        for($i=1;$i<20;$i++){
+            $user = new User();
+            $user->name = "User $i";
+            $user->email = "user$i@gmail.com";
+            $user->password = $password;
+            $user->referral_code = Utils::generateReferralCode();
+            $user->activated = 1;
+            $user->save();
 
-        DB::table('users')->insert([
-            'name' => 'Jack',
-            'username' => 'jack',
-            'email' => 'jack@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
+            $user_groups = new \Cashout\Models\UsersGroups();
+            $user_groups->group_id=1;
+            $user_groups->user_id=$user->id;
+            $user_groups->save();
 
-        $this->command->info('Jack ....');
-
-        DB::table('users')->insert([
-            'name' => 'Mitch',
-            'username' => 'mitch',
-            'email' => 'mitch@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('Mitch ....');
-
-        DB::table('users')->insert([
-            'name' => 'David',
-            'username' => 'david',
-            'email' => 'david@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('David ....');
-
-        DB::table('users')->insert([
-            'name' => 'Paul',
-            'username' => 'paul',
-            'email' => 'paul@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('Paul ....');
-
-        DB::table('users')->insert([
-            'name' => 'Rauf',
-            'username' => 'rauf',
-            'email' => 'rauf@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('Rauf ....');
-
-        DB::table('users')->insert([
-            'name' => 'Salim',
-            'username' => 'salim',
-            'email' => 'salim@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('Salim ....');
-
-        DB::table('users')->insert([
-            'name' => 'Imran',
-            'username' => 'imran',
-            'email' => 'imran@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('Imran ....');
-
-        DB::table('users')->insert([
-            'name' => 'Irfan',
-            'username' => 'irfan',
-            'email' => 'irfan@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('Irfan ....');
-
-        DB::table('users')->insert([
-            'name' => 'Vincent',
-            'username' => 'vincent',
-            'email' => 'vincent@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('Vincent ....');
-
-        DB::table('users')->insert([
-            'name' => 'Kenny',
-            'username' => 'kenny',
-            'email' => 'kenny@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('Kenny ....');
-
-        DB::table('users')->insert([
-            'name' => 'Karen',
-            'username' => 'karen',
-            'email' => 'karen@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('Karen ....');
-
-        DB::table('users')->insert([
-            'name' => 'Cris',
-            'username' => 'cris',
-            'email' => 'cris@gmail.com',
-            'password' => Hash::make('311311'),
-            'referral_code' => Utils::generateReferralCode(),
-            'activated' => 1
-        ]);
-
-        $this->command->info('Cris ....');
+            $this->command->info("User $i ....");
+        }
 
         $this->command->info('Seeding referrals ....');
 
