@@ -8,7 +8,10 @@
 
 namespace Cashout\Helpers;
 
+use Cashout\Models\User;
 use Cashout\Models\UserReferral;
+use Cashout\Models\UserReferralCoins;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
@@ -105,6 +108,8 @@ class CGS {
 
             array_push($this->chain, $user->user_id);
 
+            $this->depth++;
+
             //User have a referral .
             if($user->referral_id > 0)
                 $this->getUpChain($user->referral_id);
@@ -116,7 +121,52 @@ class CGS {
 
             array_splice($this->chain,0,1);
 
-            return dd($this->chain);
+            return;
+        }
+    }
+
+    public static function calculateCash($coins){
+        //$1 = 100 Coins
+        return $coins/100;
+    }
+
+    public function sendReferralCoins($user_id,$coins,$trial_pay_response_id){
+        // Get all referred users
+
+        $this->getUpChain($user_id);
+
+        //Get 5% from total
+        $calculated_coins = ($coins/100)*5;
+
+        $need_amt = sizeof($this->chain) * $calculated_coins;
+
+        try{
+            $referral = User::findOrFail($user_id);
+            $referral->coins = $referral->coins+($coins-$need_amt);
+            $referral->save();
+        }catch(ModelNotFoundException $e){
+            return;
+        }
+
+        foreach($this->chain as $u_id){
+
+            try{
+
+                $u = User::findOrFail($u_id);
+                $u->coins = $u->coins+$calculated_coins;
+                $u->save();
+
+                $user_referral_coins = new UserReferralCoins();
+                $user_referral_coins->referral_id = $user_id;
+                $user_referral_coins->user_id = $u_id;
+                $user_referral_coins->coins_earned = $calculated_coins;
+                $user_referral_coins->trial_pay_response_id = $trial_pay_response_id;
+                $user_referral_coins->save();
+
+            }catch(ModelNotFoundException $e){
+                //Dont throw exception here . It comes from trialpay callback url
+                continue;
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/', 'AuthController@getLogin');
+Route::get('/trial_pay/{user_id}/{reward_amt}', 'ReferralController@setRewards');
 
 //Auth - Login , Register , Forgotpassword , Change password , Login with FB
 Route::get('/login', 'AuthController@getLogin');

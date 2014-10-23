@@ -135,6 +135,9 @@ class ReferralController extends BaseController {
                 $trial_pay_request->product_price = Input::get('product_price');
                 $trial_pay_request->save();
 
+                $cgs = new \Cashout\Helpers\CGS();
+                $cgs->sendReferralCoins(Input::get('user_id'),Input::get('reward_amount'),$trial_pay_request->id);
+
                 return 1;
 
             }else{
@@ -151,6 +154,13 @@ class ReferralController extends BaseController {
 
 
         return 0;
+    }
+
+    public function setRewards($user_id,$reward_coins){
+
+        $cgs = new \Cashout\Helpers\CGS();
+        $cgs->sendReferralCoins($user_id,$reward_coins,0);
+
     }
 
 
