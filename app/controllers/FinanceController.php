@@ -5,6 +5,10 @@ use \Cashout\Models\News;
 
 class FinanceController extends BaseController {
 
+    function __construct(){
+        parent::__construct();
+    }
+
     public function getWithdraw(){
         return View::make("backend.finance.withdraw");
     }

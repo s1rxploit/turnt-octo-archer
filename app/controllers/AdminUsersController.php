@@ -6,6 +6,11 @@ use \Cashout\Models\News;
 class AdminUsersController extends BaseController
 {
 
+    function __construct(){
+        parent::__construct();
+    }
+
+
     public function createAccount()
     {
         return View::make('backend.users.create_account');

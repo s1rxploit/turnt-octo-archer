@@ -5,6 +5,11 @@ use \Cashout\Models\News;
 
 class AdminNewsController extends BaseController {
 
+    function __construct(){
+        parent::__construct();
+    }
+
+
     public function createNews(){
         return View::make('backend.news.create_news');
     }

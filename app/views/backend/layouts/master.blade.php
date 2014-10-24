@@ -42,6 +42,8 @@
 		{{HTML::script("/assets/js/plugins/interface/timepicker.min.js")}}
 		{{HTML::script("/assets/js/plugins/interface/collapsible.min.js")}}
 		{{HTML::script("/assets/js/bootstrap.min.js")}}
+		{{HTML::script("http://js.pusher.com/2.2/pusher.min.js")}}
+		{{HTML::script("/assets/js/ChatNotifier.js")}}
 		{{HTML::script("/assets/js/application.js")}}
 
 		<style>
@@ -90,7 +92,7 @@
 		<!-- /page container -->
 
 		<script>
-			jQuery(document).ready(function($) {
+			$(document).ready(function($) {
 
 				$(document).bind("ajaxSend", function() {
 					$(".disableOnAjax").prop('disabled', true).addClass("no-click");
@@ -99,6 +101,12 @@
 					$(".disableOnAjax").prop('disabled', false).removeClass("no-click");
 					$("#ajaxLoading").hide();
 				});
+
+				$(function() {
+                  var pusher = new Pusher({{$site_config->pusher_app_key}});
+                  var channel = pusher.subscribe({{$site_config->user_chat_channel}});
+                  var chat_notifier = new ChatNotifier(channel);
+                });
 
 			});
 		</script>

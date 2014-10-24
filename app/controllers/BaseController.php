@@ -4,6 +4,11 @@ class BaseController extends Controller {
 
     public $data ;
 
+    function __construct(){
+        $this->data['site_config'] = Config::get('cashout');
+    }
+
+
 	/**
 	 * Setup the layout used by the controller.
 	 *

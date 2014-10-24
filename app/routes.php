@@ -59,6 +59,9 @@ Route::group(['before' => 'admin_auth','prefix'=>'admin'], function () {
     Route::get('users/un-suspend/{user_id}', 'AdminController@unSuspendUser');
     Route::get('users/suspend/{user_id}/{hrs}', 'AdminController@suspendUser');
 
+    Route::get('pending_withdrawals', 'AdminFinanceController@pendingWithdrawals');
+    Route::get('approved_withdrawals', 'AdminFinanceController@approvedWithdrawals');
+
     Route::group(['filter' => 'csrf'], function () {
         Route::post('users/add_account', 'AdminUsersController@storeAccount');
         Route::post('users/update/{user_id}', 'AdminUsersController@updateUser');

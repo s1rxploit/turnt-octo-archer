@@ -4,6 +4,10 @@ use Cashout\Models\UserReferral;
 
 class ReferralController extends BaseController {
 
+    function __construct(){
+        parent::__construct();
+    }
+
     public function getNewReferrals(){
 
         return View::make('backend.referral.create_referral');

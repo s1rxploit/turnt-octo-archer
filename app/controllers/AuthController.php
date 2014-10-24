@@ -8,10 +8,13 @@ class AuthController extends BaseController
 
     public $userManager;
 
-    function __construct(UserManagement $userManager)
-    {
+    function __construct(UserManagement $userManager){
+
         $this->userManager = $userManager;
+
+        parent::__construct();
     }
+
 
     public function getReferralRegister($referral_code){
 

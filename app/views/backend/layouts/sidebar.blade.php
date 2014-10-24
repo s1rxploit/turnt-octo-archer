@@ -68,10 +68,10 @@
 
 					@if(Auth::check()&&Auth::user()->isAdmin())
                     					<li>
-                    						<a href="/withdraw_funds">Withdraw Funds</a>
+                    						<a href="/admin/pending_withdrawals">Pending Withdrawals</a>
                     					</li>
                     					<li>
-                    						<a href="/withdraw_funds/all">Transaction history</a>
+                    						<a href="/admin/approved_withdrawals">Approved Withdrawals</a>
                     					</li>
                     					@endif
 				</ul>
