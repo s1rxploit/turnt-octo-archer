@@ -24,6 +24,8 @@ Route::group(['before' => 'customer_auth'], function () {
 
     Route::get('/dashboard', 'DashboardController@index');
     Route::get('/earnings', 'DashboardController@startEarnings');
+    Route::get('/withdraw_funds', 'FinanceController@getWithdraw');
+    Route::get('/withdraw_funds/all', 'FinanceController@getAllWithdrawalsRequest');
     Route::get('/cgs', 'DashboardController@showCGS');
     Route::get('notifications/archive/{notification_id}', 'DashboardController@archiveNotification');
     Route::get('referral/new', 'ReferralController@getNewReferrals');
@@ -34,6 +36,7 @@ Route::group(['before' => 'customer_auth'], function () {
 
     Route::group(['filter' => 'csrf'], function () {
         Route::post('referral/new', 'ReferralController@postNewReferrals');
+        Route::post('/withdraw_funds', 'FinanceController@postWithdraw');
         Route::post('profile/edit', 'DashboardController@updateProfile');
         Route::post('profile/change_password', 'AuthController@postChangePassword');
     });

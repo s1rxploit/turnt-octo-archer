@@ -7,7 +7,7 @@
 			<div class="user-info">
 				{{Auth::user()->name}}
 				<span><i class="icon-coin"></i> Coins : {{Auth::user()->coins}}</span>
-				<span><i class="icon-coin"></i> Cash : {{Auth::user()->cash}}</span>
+				<span><i class="icon-coin"></i> Cash : {{Auth::user()->cash}} $</span>
 			</div> </a>
 			<div class="popup dropdown-menu dropdown-menu-right">
 				<div class="thumbnail">
@@ -25,7 +25,7 @@
 						<i class="icon-coin text-muted"></i> Coins <span class="label label-success">{{Auth::user()->coins}}</span>
 					</li>
 					<li class="list-group-item">
-						<i class="icon-coin text-muted"></i> Cash <span class="label label-success">{{Auth::user()->cash}}</span>
+						<i class="icon-coin text-muted"></i> Cash <span class="label label-success">{{Auth::user()->cash}} $</span>
 					</li>
 				</ul>
 			</div>
@@ -57,12 +57,23 @@
 			<li>
 				<a href="" class="expand"><span>Finance</span> <i class="icon-coin"></i></a>
 				<ul>
+				@if(Auth::check()&&Auth::user()->isCustomer())
 					<li>
-						<a href="">Withdraw Funds</a>
+						<a href="/withdraw_funds">Withdraw Funds</a>
 					</li>
 					<li>
-						<a href="">Transaction history</a>
+						<a href="/withdraw_funds/all">Transaction history</a>
 					</li>
+					@endif
+
+					@if(Auth::check()&&Auth::user()->isAdmin())
+                    					<li>
+                    						<a href="/withdraw_funds">Withdraw Funds</a>
+                    					</li>
+                    					<li>
+                    						<a href="/withdraw_funds/all">Transaction history</a>
+                    					</li>
+                    					@endif
 				</ul>
 			</li>
 

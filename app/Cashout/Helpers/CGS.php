@@ -127,7 +127,18 @@ class CGS {
 
     public static function calculateCash($coins){
         //$1 = 100 Coins
-        return $coins/100;
+
+        $coins_per_dollar = \Config::get('cashout.coins_per_dollar');
+
+        return $coins/$coins_per_dollar;
+    }
+
+    public static function calculateCoins($cash){
+
+        $coins_per_dollar = \Config::get('cashout.coins_per_dollar');
+
+        //$1 = 100 Coins
+        return $cash*$coins_per_dollar;
     }
 
     public function sendReferralCoins($user_id,$coins,$trial_pay_response_id){
@@ -169,6 +180,5 @@ class CGS {
             }
         }
     }
-
 
 } 
