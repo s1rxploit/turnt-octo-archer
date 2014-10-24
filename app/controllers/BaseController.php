@@ -5,7 +5,7 @@ class BaseController extends Controller {
     public $data ;
 
     function __construct(){
-        $this->data['site_config'] = Config::get('cashout');
+        $this->data['site_config'] = (Object)Config::get('cashout');
     }
 
 

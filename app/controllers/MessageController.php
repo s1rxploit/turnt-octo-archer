@@ -8,7 +8,7 @@ class MessageController extends BaseController
     public $repo, $pusher, $channel;
 
     function __construct(){
-        
+
         $this->repo = new MessageRepository();
         $this->pusher = new Pusher($this->data['site_config']->pusher_app_key, $this->data['site_config']->pusher_app_secret, $this->data['site_config']->pusher_app_id);
         $this->channel = "user-" . Auth::user()->id;
