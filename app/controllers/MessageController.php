@@ -19,27 +19,37 @@ class MessageController extends BaseController
 
     public function allMessages(){
 
+        $cgs = new \Cashout\Helpers\CGS();
+        $this->data['users'] = $cgs->getAllContacts(Auth::user()->id);
+
+        if(sizeof($this->data['users'])>0){
+            $this->data['thread'] = $this->repo->getAllThreads($this->data['users'][0]->id,true);
+        }
+
         return View::make('backend.messages',$this->data);
+    }
+
+    public function getMessagesByThread($user_id){
+        if($user_id>0){
+            return json_encode($this->repo->getAllThreads($user_id,true));
+        }
     }
 
     public function sendMessage()
     {
 
         // Sanitize first?
-        $sender_id = Input::get('sender_id');
-        $recipients = Input::get('recipients');
+        $sender_id = Auth::user()->id;
+        $recipient_id = Input::get('recipient_id');
         $body = Input::get('body');
         $priority = Input::get('priority', 'normal');
         $thread = Input::get('thread_id');
 
+        $pusher_arr = ['sender_id' => $sender_id, 'recipient' => [$recipient_id], 'message' => $body, 'priority' => $priority, 'thread' => $thread];
 
-        foreach ($recipients as $recipient) {
-            $pusher_arr = ['sender_id' => $sender_id, 'recipient' => $recipient, 'message' => $body, 'priority' => $priority, 'thread' => $thread];
+        $this->pusher->trigger($this->channel, "message_sent", json_encode($pusher_arr), null, false, true);
 
-            $this->pusher->trigger($this->channel, "message_sent", json_encode($pusher_arr), null, false, true);
-        }
-
-        return $this->repo->sendNewMessage($sender_id, $recipients, $body, $priority, $thread);
+        return $this->repo->sendNewMessage($sender_id, [$recipient_id], $body, $priority, $thread);
     }
 
     public function getMessage($user, $message)

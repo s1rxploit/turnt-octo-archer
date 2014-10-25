@@ -103,10 +103,10 @@
 				});
 
 				$(function() {
-                  var pusher = new Pusher("{{$site_config->pusher_app_key}}");
-                  var channel = pusher.subscribe("{{$site_config->user_chat_channel}}");
-                  var chat_notifier = new ChatNotifier(channel);
-                });
+					var pusher = new Pusher("{{$site_config->pusher_app_key}}");
+					var channel = pusher.subscribe("{{$site_config->user_chat_channel}}");
+					var chat_notifier = new ChatNotifier(channel);
+				});
 
 			});
 		</script>

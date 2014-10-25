@@ -31,18 +31,18 @@
 		</div>
 
 		<div class="form-group">
-        			<label class="col-sm-2 control-label">New Password</label>
-        			<div class="col-sm-10">
-        				<input name="password" type="password" class="form-control" >
-        			</div>
-        		</div>
+			<label class="col-sm-2 control-label">New Password</label>
+			<div class="col-sm-10">
+				<input name="password" type="password" class="form-control" >
+			</div>
+		</div>
 
-        		<div class="form-group">
-                        			<label class="col-sm-2 control-label">Confirm New Password</label>
-                        			<div class="col-sm-10">
-                        				<input name="password_confirmation" type="password" class="form-control" >
-                        			</div>
-                        		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Confirm New Password</label>
+			<div class="col-sm-10">
+				<input name="password_confirmation" type="password" class="form-control" >
+			</div>
+		</div>
 
 		<div class="form-actions text-right">
 			<label class="col-sm-2 control-label"></label>
@@ -58,8 +58,8 @@
 {{HTML::style("/assets/plugins/datepicker/css/datepicker3.css")}}
 {{HTML::script("/assets/plugins/datepicker/js/bootstrap-datepicker.js")}}
 <script type="text/javascript">
-    $('#birthday').datepicker({
-       format: "dd-mm-yyyy"
-    });
+	$('#birthday').datepicker({
+		format : "dd-mm-yyyy"
+	}); 
 </script>
 @stop

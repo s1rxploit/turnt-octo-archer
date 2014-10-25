@@ -32,11 +32,11 @@
 		</div>
 
 		<div class="form-group">
-        			<label class="col-sm-2 control-label">Paypal Email</label>
-        			<div class="col-sm-10">
-        				<input name="paypal_email" type="text" class="form-control" >
-        			</div>
-        		</div>
+			<label class="col-sm-2 control-label">Paypal Email</label>
+			<div class="col-sm-10">
+				<input name="paypal_email" type="text" class="form-control" >
+			</div>
+		</div>
 
 		<div class="form-actions text-right">
 			<label class="col-sm-2 control-label"></label>

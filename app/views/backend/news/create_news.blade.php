@@ -38,28 +38,28 @@
 	<div class="panel-body">
 
 		<div class="form-group">
-        			<label class="col-sm-2 control-label">Title</label>
-        			<div class="col-sm-10">
-                         <input name="title" type="text" class="form-control" value="{{Input::old('title')}}">
-                    </div>
-        		</div>
+			<label class="col-sm-2 control-label">Title</label>
+			<div class="col-sm-10">
+				<input name="title" type="text" class="form-control" value="{{Input::old('title')}}">
+			</div>
+		</div>
 
-        <div class="form-group">
-                			<label class="col-sm-2 control-label">Description</label>
-                			<div class="col-sm-10">
-                                 <textarea name="description" type="text" class="form-control" id="ckeditor">{{Input::old('description')}}</textarea>
-                            </div>
-                		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Description</label>
+			<div class="col-sm-10">
+				<textarea name="description" type="text" class="form-control" id="ckeditor">{{Input::old('description')}}</textarea>
+			</div>
+		</div>
 
-        <div class="form-group">
-                        			<label class="col-sm-2 control-label">Status</label>
-                        			<div class="col-sm-10">
-                                         <select class="form-control input-lg" name="status">
-                                            <option {{Input::old('status')==1?"selected":""}} value="1">Active</option>
-                                            <option {{Input::old('status')==0?"selected":""}} value="0">Inactive</option>
-                                         </select>
-                                    </div>
-                        		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Status</label>
+			<div class="col-sm-10">
+				<select class="form-control input-lg" name="status">
+					<option {{Input::old('status')==1?"selected":""}} value="1">Active</option>
+					<option {{Input::old('status')==0?"selected":""}} value="0">Inactive</option>
+				</select>
+			</div>
+		</div>
 
 		<div class="form-actions text-right">
 			<label class="col-sm-2 control-label"></label>
@@ -69,18 +69,16 @@
 </div>
 {{Form::close()}}
 
-
 @stop
 
 @section('scripts')
 {{HTML::script('/assets/plugins/ckeditor/ckeditor.js')}}
 <script>
+	// Replace the <textarea id="editor1"> with a CKEditor
+	// instance, using default configuration.
+	$(document).ready(function() {
+		CKEDITOR.replace('ckeditor');
+	});
 
-                // Replace the <textarea id="editor1"> with a CKEditor
-                // instance, using default configuration.
-                $(document).ready(function(){
-                CKEDITOR.replace( 'ckeditor' );
-                });
-
-            </script>
+</script>
 @stop

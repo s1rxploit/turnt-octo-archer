@@ -26,57 +26,73 @@
 
 @if(Auth::user()->isCustomer())
 <div class="well" style="margin-bottom: 10px;margin-top: 10px;">
-    <label>Referral URL</label>
-    <span id="referral_link"><input type="text" class="form-control input-lg" readonly="readonly" value="http::/www.cashout.at/register/referral/{{Auth::user()->referral_code}}"/></span>
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-md-10">
-            Share on
-            <a href=""><i class="icon-facebook"></i></a>
-            <a href=""><i class="icon-twitter"></i></a>
-            <a href=""><i class="icon-google-plus"></i></a>
-        </div>
-    </div>
+	<label>Referral URL</label>
+	<span id="referral_link">
+		<input type="text" class="form-control input-lg" readonly="readonly" value="http::/www.cashout.at/register/referral/{{Auth::user()->referral_code}}"/>
+	</span>
+	<div class="row" style="margin-top: 10px;">
+		<div class="col-md-10">
+			Share on
+			<a href=""><i class="icon-facebook"></i></a>
+			<a href=""><i class="icon-twitter"></i></a>
+			<a href=""><i class="icon-google-plus"></i></a>
+		</div>
+	</div>
 </div>
 @endif
 
 @if(Auth::user()->isAdmin())
 <div class="block">
- <h4>Registrations</h4>
-                      <ul class="statistics list-justified">
-                        <li>
-                          <div class="statistics-info"> <a href="#" title="" class="bg-success"><i class="icon-user-plus"></i></a> <strong>{{$users_past_hr}}</strong> </div>
-                          <div class="progress progress-micro">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                          </div>
-                          <span>Past hour</span> </li>
-                        <li>
-                          <div class="statistics-info"> <a href="#" title="" class="bg-warning"><i class="icon-user-plus"></i></a> <strong>{{$users_today}}</strong> </div>
-                          <div class="progress progress-micro">
-                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                          </div>
-                          <span>Today</span> </li>
-                        <li>
-                          <div class="statistics-info"> <a href="#" title="" class="bg-info"><i class="icon-user-plus"></i></a> <strong>{{$users_this_week}}</strong> </div>
-                          <div class="progress progress-micro">
-                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                          </div>
-                          <span>Week</span> </li>
-                        <li>
-                          <div class="statistics-info"> <a href="#" title="" class="bg-danger"><i class="icon-user-plus"></i></a> <strong>{{$users_this_month}}</strong> </div>
-                          <div class="progress progress-micro">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                          </div>
-                          <span>Month</span> </li>
-                        <li>
-                          <div class="statistics-info"> <a href="#" title="" class="bg-primary"><i class="icon-user-plus"></i></a> <strong>{{$users_total}}</strong> </div>
-                          <div class="progress progress-micro">
-                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                          </div>
-                          <span>Total users</span> </li>
-                      </ul>
-                    </div>
+	<h4>Registrations</h4>
+	<ul class="statistics list-justified">
+		<li>
+			<div class="statistics-info">
+				<a href="#" title="" class="bg-success"><i class="icon-user-plus"></i></a><strong>{{$users_past_hr}}</strong>
+			</div>
+			<div class="progress progress-micro">
+				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+			</div>
+			<span>Past hour</span>
+		</li>
+		<li>
+			<div class="statistics-info">
+				<a href="#" title="" class="bg-warning"><i class="icon-user-plus"></i></a><strong>{{$users_today}}</strong>
+			</div>
+			<div class="progress progress-micro">
+				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+			</div>
+			<span>Today</span>
+		</li>
+		<li>
+			<div class="statistics-info">
+				<a href="#" title="" class="bg-info"><i class="icon-user-plus"></i></a><strong>{{$users_this_week}}</strong>
+			</div>
+			<div class="progress progress-micro">
+				<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+			</div>
+			<span>Week</span>
+		</li>
+		<li>
+			<div class="statistics-info">
+				<a href="#" title="" class="bg-danger"><i class="icon-user-plus"></i></a><strong>{{$users_this_month}}</strong>
+			</div>
+			<div class="progress progress-micro">
+				<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+			</div>
+			<span>Month</span>
+		</li>
+		<li>
+			<div class="statistics-info">
+				<a href="#" title="" class="bg-primary"><i class="icon-user-plus"></i></a><strong>{{$users_total}}</strong>
+			</div>
+			<div class="progress progress-micro">
+				<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+			</div>
+			<span>Total users</span>
+		</li>
+	</ul>
+</div>
 @endif
-
 
 <!-- Default info blocks -->
 <ul class="info-blocks">
@@ -117,8 +133,6 @@
 		<a href="#"><i class="icon-coin"></i></a><span class="bottom-info bg-danger">9 new invoices</span>
 	</li>
 </ul>
-
-
 
 <!-- /default info blocks -->
 <div class="row">
@@ -192,10 +206,10 @@
 						<div class="block">
 							<ul class="media-list">
 								<li class="media">
-								<!--
+									<!--
 									<a class="pull-left" href="#"><img class="media-object" src="images/demo/users/face25.png" alt=""></a>
-								-->
-								    @foreach($news as $news_item)
+									-->
+									@foreach($news as $news_item)
 									<div class="media-body">
 										<div class="clearfix">
 											<a href="/news/{{$news_item->slug}}" class="media-heading">{{$news_item->title}}</a><span class="media-notice">{{Cashout\Helpers\Utils::prettyDate($news_item->created_at,true)}}</span>

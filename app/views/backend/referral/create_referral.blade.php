@@ -40,10 +40,10 @@
 			<label class="col-sm-12 control-label">Enter Emails Separated by comma</label>
 		</div>
 		<div class="form-group">
-        	<div class="col-sm-10">
-        		<textarea name="emails" class="form-control">{{Input::old('emails')}}</textarea>
-        	</div>
-        </div>
+			<div class="col-sm-10">
+				<textarea name="emails" class="form-control">{{Input::old('emails')}}</textarea>
+			</div>
+		</div>
 		<div class="form-actions text-right">
 			<label class="col-sm-2 control-label"></label>
 			<input type="submit" value="Save" class="btn btn-info">
@@ -51,6 +51,5 @@
 	</div>
 </div>
 {{Form::close()}}
-
 
 @stop
