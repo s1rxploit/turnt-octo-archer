@@ -9,11 +9,17 @@ class MessageController extends BaseController
 
     function __construct(){
 
+        parent::__construct();
+
         $this->repo = new MessageRepository();
         $this->pusher = new Pusher($this->data['site_config']->pusher_app_key, $this->data['site_config']->pusher_app_secret, $this->data['site_config']->pusher_app_id);
         $this->channel = "user-" . Auth::user()->id;
 
-        parent::__construct();
+    }
+
+    public function allMessages(){
+
+        return View::make('backend.messages',$this->data);
     }
 
     public function sendMessage()

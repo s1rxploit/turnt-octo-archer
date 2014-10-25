@@ -11,6 +11,7 @@ Route::get('/forgot-password', 'AuthController@getForgotPassword');
 Route::get('/reset/{email}/{code}', 'AuthController@getReset');
 Route::get('/facebook', 'AuthController@signInWithFacebook');
 Route::post('/trial_pay/process', 'ReferralController@trialPayResponse');
+Route::get('/messages', 'MessageController@allMessages');
 Route::get('/logout', 'AuthController@logout');
 
 Route::group(['filter' => 'csrf'], function () {
